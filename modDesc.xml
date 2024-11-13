@@ -13,7 +13,7 @@
     
     <description>
         <en><![CDATA[
-Description: This mod allows unloading bales beyond a configurable threshold (default: 10%)
+Description: This mod allows unloading unfinished bales early.
 
 The mod works for:
 - Round balers (including poplar bio balers)
@@ -22,24 +22,20 @@ The mod works for:
 - One-Chamber Cotton Harvesters
 - Two-Chamber Cotton Harvesters and modded two-chamber balers
 
-The threshold can be configured in the general settings (only admins can do that in multiplayer)
-
-Hotkeys: O for unloading bales early
+Hotkeys: O: Unloads unfinished bales or overloads the first chamber to the second one. The baler might have to be turned off for this to work.
 GitHub link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
 ]]></en>
         <de><![CDATA[
-Beschreibung: Diese Mod erlaubt das Abladen von Ballen ab einem konfigurierbaren Schwellenwert (Standard: 10%)
+Beschreibung: Diese Mod erlaubt das frühzeitige Abladen von Ballen.
 
-Die mod funktioniert für:
+Die Mod funktioniert für:
 - Rundballenpressen (einschließlich Pressen für Pappeln)
 - Quaderballenpressen (nur, wenn ausgeschaltet)
 - Rundballenpress-/wickel-Kombinationen
 - Baumwollernter mit einer Kammer
 - Baumwollernter mit zwei Kammern und gemoddete Ballenpressen mit zwei Kammern
 
-Der Schwellenwert kann in den Allgemeinen Einstellungen konfiguriert werden (nur Admins können das im Mehrspielermodus ändern)
-
-Tastenkombinationen: O for unloading bales early
+Tastenkombinationen: O: Lädt Ballen vorzeitig ab oder lädt den Inhalt von der ersten Kammer in die zweite Kammer über. Die Ballenpresse muss eventuell ausgeschaltet werden, damit das funktioniert.
 GitHub-Link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
 ]]></de>
     </description>
@@ -56,39 +52,4 @@ GitHub-Link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
         <sourceFile filename="scripts/EarlyUnloadHandler.lua" />
         <sourceFile filename="scripts/UnloadBalesEarly.lua" />
     </extraSourceFiles>
-
-    <l10n>
-        <text name="ub_overload_early">
-            <en>Overload To Second Chamber</en>
-            <de>Lade in zweite Kammer über</de>
-            <ru>Перегрузка во вторую камеру</ru>
-            <pl>Przeładunek do drugiej komory</pl>
-            <es>Descarga en Segunda Camara</es>
-            <ea>Descarga en Segunda Camara</ea>
-        </text>
-        <text name="ub_group_title">
-            <en>Unload Bales Early</en>
-            <de>Ballen Frühzeitig Abladen</de>
-            <ru>Выгрузка неполных тюков</ru>
-            <pl>Wcześniejszy rozładunek bel</pl>
-            <es>Descarga anticipada de pacas</es>
-            <ea>Descarga anticipada de pacas</ea>
-        </text>
-        <text name="ub_unload_threshold_label">
-            <en>Unload Threshold</en>
-            <de>Ablade-Schwelle</de>
-            <ru>Порог выгрузки</ru>
-            <pl>Próg rozładunku</pl>
-            <es>Umbral de Descarga</es>
-            <ea>Umbral de Descarga</ea>
-        </text>
-        <text name="ub_unload_threshold_desc">
-            <en>Bales can be unloaded early if the baler is filled more than this percentage.</en>
-            <de>Ballen können frühzeitig abgeladen werden, wenn die Ballenpresse mehr gefüllt ist als dieser Prozentwert.</de>
-            <ru>Тюки можно выгрузить раньше, если пресс-подборщик заполнен больше чем на этот процент.</ru>
-            <pl>Bele mogą zostać rozładowane wcześniej, jeśli prasa jest wypełniona w stopniu przekraczającym ten procent.</pl>
-            <es>Las pacas se pueden descargar si la empacadora se llena por encima de este porcentaje.</es>
-            <ea>Las pacas se pueden descargar si la empacadora se llena por encima de este porcentaje.</ea>
-        </text>
-    </l10n>
 </modDesc>
