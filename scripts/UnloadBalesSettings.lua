@@ -10,7 +10,7 @@ local UnloadBalesSettings_mt = Class(UnloadBalesSettings)
 ---@return table @The new instance
 function UnloadBalesSettings.new()
     local self = setmetatable({}, UnloadBalesSettings_mt)
-    self.unloadThresholdIndex = 2 -- 10%
+    self.unloadThresholdIndex = 1 -- 0%
     return self
 end
 

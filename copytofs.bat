@@ -1,1 +1,1 @@
-robocopy . "%USERPROFILE%\Documents\my games\FarmingSimulator2022\mods\FS22_UnloadBalesEarly" /mir /XD ".git" ".vscode" ".VSCodeCounter" "screenshots" /XF "*.bat" "*.md" "LICENSE" ".gitignore" ".gitattributes"
+robocopy . "%USERPROFILE%\Documents\my games\FarmingSimulator2025\mods\FS25_UnloadBalesEarly" /mir /XD ".git" ".vscode" ".VSCodeCounter" "screenshots" /XF "*.bat" "*.md" "LICENSE" ".gitignore" ".gitattributes"

@@ -5,6 +5,7 @@ UnloadBalesUI = {
         UNLOAD_THRESHOLD_DESC = 'ub_unload_threshold_desc'
     }
 }
+--[[
 
 ---Creates an element which allows choosing one out of several text values
 ---@param generalSettingsPage   table       @The base game object for the settings page
@@ -89,3 +90,4 @@ end
 
 -- Register overrides/extensions
 InGameMenuGeneralSettingsFrame.onFrameOpen = Utils.appendedFunction(InGameMenuGeneralSettingsFrame.onFrameOpen, UnloadBalesUI.onFrameOpen)
+]]
