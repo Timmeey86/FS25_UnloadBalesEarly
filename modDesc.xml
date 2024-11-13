@@ -22,7 +22,7 @@ The mod works for:
 - One-Chamber Cotton Harvesters
 - Two-Chamber Cotton Harvesters and modded two-chamber balers
 
-Hotkeys: O: Unloads unfinished bales or overloads the first chamber to the second one. The baler might have to be turned off for this to work.
+Hotkeys: O: Unloads unfinished bales or overloads the first chamber to the second one. Dependent on the type of baler, you need to turn the baler on or off for this to work.
 GitHub link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
 ]]></en>
         <de><![CDATA[
@@ -35,7 +35,7 @@ Die Mod funktioniert für:
 - Baumwollernter mit einer Kammer
 - Baumwollernter mit zwei Kammern und gemoddete Ballenpressen mit zwei Kammern
 
-Tastenkombinationen: O: Lädt Ballen vorzeitig ab oder lädt den Inhalt von der ersten Kammer in die zweite Kammer über. Die Ballenpresse muss eventuell ausgeschaltet werden, damit das funktioniert.
+Tastenkombinationen: O: Lädt Ballen vorzeitig ab oder lädt den Inhalt von der ersten Kammer in die zweite Kammer über. Abhängig von der Art der Ballenpresse muss diese ein- oder ausgeschaltet sein, damit dies funktioniert.
 GitHub-Link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
 ]]></de>
     </description>
@@ -52,4 +52,23 @@ GitHub-Link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
         <sourceFile filename="scripts/EarlyUnloadHandler.lua" />
         <sourceFile filename="scripts/UnloadBalesEarly.lua" />
     </extraSourceFiles>
+
+    <l10n>
+        <text name="ub_overload_early">
+            <en>Overload To Second Chamber</en>
+            <de>Lade in zweite Kammer über</de>
+            <ru>Перегрузка во вторую камеру</ru>
+            <pl>Przeładunek do drugiej komory</pl>
+            <es>Descarga en Segunda Camara</es>
+            <ea>Descarga en Segunda Camara</ea>
+        </text>
+        <text name="ub_group_title">
+            <en>Unload Bales Early</en>
+            <de>Ballen Frühzeitig Abladen</de>
+            <ru>Выгрузка неполных тюков</ru>
+            <pl>Wcześniejszy rozładunek bel</pl>
+            <es>Descarga anticipada de pacas</es>
+            <ea>Descarga anticipada de pacas</ea>
+        </text>
+    </l10n>
 </modDesc>

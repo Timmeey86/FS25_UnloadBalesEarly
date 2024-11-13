@@ -15,6 +15,10 @@ The threshold can be configured in the general settings (only admins can do that
 
 This mod is based on the idea of FS19's ["UnfinishedBales"](https://github.com/Mogli12/UnfinishedBales) mod by mogli12 but was developed from scratch for FS22 and converted to FS25 by Farmsim Tim.
 
+The icon is build from the following elements:
+- [Baler icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/baler)
+- [Hay icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/hay)
+
 ## Screenshots
 
 One-chamber balers
