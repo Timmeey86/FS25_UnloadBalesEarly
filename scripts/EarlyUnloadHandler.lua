@@ -14,7 +14,7 @@ function EarlyUnloadHandler.new()
 	return self
 end
 
-local traceCalls = true
+local traceCalls = false
 local function traceMethod(methodName)
 	if traceCalls then
 		print(MOD_NAME .. ": " .. methodName)

@@ -21,33 +21,39 @@ function UnloadBaleEarlyEvent.new(baler)
     return self
 end
 
+local debugMp = false
+local function dbgPrintMp(text)
+    if debugMp then
+        print(MOD_NAME .. ": " .. text)
+    end
+end
 ---Reads settings which were sent by another network participant and then applies them locally
 ---@param streamId any @The ID of the stream to read from.
 ---@param connection any @The connection which sent the event.
 function UnloadBaleEarlyEvent:readStream(streamId, connection)
-    print(MOD_NAME .. ": Receiving UnloadBaleEarlyEvent")
+    dbgPrintMp("Receiving UnloadBaleEarlyEvent")
     if not connection:getIsServer() then
-        print(MOD_NAME .. ": Running UnloadBaleEarlyEvent")
+        dbgPrintMp("Running UnloadBaleEarlyEvent")
         -- We are the server: Act as if the event was triggered on the server, this should trigger all necessary client actions on the way
         self.baler = NetworkUtil.readNodeObject(streamId)
         self.baler:handleUnloadingBaleEvent()
-        print(MOD_NAME .. ": Done running UnloadBaleEarlyEvent")
+        dbgPrintMp("Done running UnloadBaleEarlyEvent")
     else
         Logging.error("%s: UnloadBaleEarlyEvent is a client-to-server-only event.", MOD_NAME)
     end
-    print(MOD_NAME .. ": Done receiving UnloadBaleEarlyEvent")
+    dbgPrintMp("Done receiving UnloadBaleEarlyEvent")
 end
 
 ---Sends event data, in this case exclusively from the client to the server
 ---@param streamId any @The stream ID.
 ---@param connection any @The connection to use.
 function UnloadBaleEarlyEvent:writeStream(streamId, connection)
-    print(MOD_NAME .. ": Sending UnloadBaleEarlyEvent")
+    dbgPrintMp("Sending UnloadBaleEarlyEvent")
     if connection:getIsServer() then
         -- Connected to a server: Tell the server which baler to unload
         NetworkUtil.writeNodeObject(streamId, self.baler)
     else
         Logging.error("%s: UnloadBaleEarlyEvent is a client-to-server-only event.", MOD_NAME)
     end
-    print(MOD_NAME .. ": Done sending UnloadBaleEarlyEvent")
+    dbgPrintMp("Done sending UnloadBaleEarlyEvent")
 end
