@@ -1,7 +1,8 @@
----@class EarlyUnloadHandler
 ---This class is responsible for allowing the player to unload bales early
 ---The logic for doing that is already in the game, we just have to enable it and do some calls to make sure the physics work properly
 ---for balers which weren't intended to have that functionality.
+---@class EarlyUnloadHandler
+---@field overrideFillLevel number @If this value is greater than zero during Baler.createBale, the bale's amount of liters will be overwritten with this value
 EarlyUnloadHandler = {}
 local EarlyUnloadHandler_mt = Class(EarlyUnloadHandler)
 
@@ -13,11 +14,19 @@ function EarlyUnloadHandler.new()
 	return self
 end
 
+local traceCalls = true
+local function traceMethod(methodName)
+	if traceCalls then
+		print(MOD_NAME .. ": " .. methodName)
+	end
+end
+
 ---Allows unloading unfinished bales on all balers on load, independent of their XML settings
 ---@param baler table @The baler which is being loaded
 ---@param superFunc function @The base game implementation
 ---@param savegame table @The save game object
 function EarlyUnloadHandler.onBalerLoad(baler, superFunc, savegame)
+	traceMethod("onBalerLoad")
     local spec = baler.spec_baler
 
 	-- Execute base game behavior first
@@ -40,8 +49,10 @@ end
 ---@param baler table @The baler instance
 ---@param superFunc function @The base game implementation
 function EarlyUnloadHandler:onHandleUnloadingBaleEvent(baler, superFunc)
+	traceMethod("onHandleUnloadingBaleEvent")
 	local spec = baler.spec_baler
 	if spec.unloadingState == Baler.UNLOADING_CLOSED and #spec.bales == 0 and baler:getCanUnloadUnfinishedBale() then
+		traceMethod("onHandleUnloadingBaleEvent/create bale")
 		-- Remember the current fill level of the baler
 		self.overrideFillLevel = baler:getFillUnitFillLevel(spec.fillUnitIndex)
 		-- Set the bale to max fill level so the physics doesn't bug out when unloading
@@ -55,6 +66,7 @@ function EarlyUnloadHandler:onHandleUnloadingBaleEvent(baler, superFunc)
 	end
 
 	-- Now that we made sure a bale was created if necessary, call the base game behavior
+	traceMethod("onHandleUnloadingBaleEvent/superFunc")
 	superFunc(baler)
 end
 
@@ -66,14 +78,21 @@ end
 ---@param param3 any @Unknown param (not needed, but forwarded to superFunc)
 ---@param param4 any @Unknown param (not needed, but forwarded to superFunc)
 function EarlyUnloadHandler.onActionEventUnloading(baler, superFunc, param1, param2, param3, param4)
+	traceMethod("onActionEventUnloading")
 	local spec = baler.spec_baler
 	if EarlyUnloadHandler.getCanOverloadBuffer(baler) then
+		traceMethod("onActionEventUnloading/can overload")
 		--Two-chamber vehicles: Reduce the overloading percentage so the baler starts unloading
 		spec.buffer.overloadingStartFillLevelPct = g_currentMission.unloadBalesEarlySettings:getUnloadThresholdInPercent() / 100
 		spec.overloadingThresholdIsOverridden = true
 		-- Ignore the event in this case, don't forward it
+	elseif g_server == nil and baler:getCanUnloadUnfinishedBale() then
+		-- Ask the server to trigger an early unload.
+		g_client:getServerConnection():sendEvent(UnloadBaleEarlyEvent.new(baler))
 	else
+		traceMethod("onActionEventUnloading/can not overload")
 		-- Forward the event through base game mechanism in all other cases
+		-- In single player or for the hosting player, this could trigger an early unload
 		superFunc(baler, param1, param2, param3, param4)
 	end
 end
@@ -85,6 +104,7 @@ function EarlyUnloadHandler.after_onUpdateTick(baler, ...)
 	-- Reset the overloading percentage when unloading has started
 	local spec = baler.spec_baler
 	if spec.buffer.unloadingStarted and spec.overloadingThresholdIsOverridden then
+		traceMethod("after_onUpdateTick/reset overloading threshold")
 		spec.buffer.overloadingStartFillLevelPct = spec.originalOverloadPct
 		spec.overloadingThresholdIsOverridden = false
 	end
@@ -102,6 +122,7 @@ end
 ---@param xmlFileName string @The name of the XML which contains bale data (when loading)
 ---@return boolean @True if a valid bale was created
 function EarlyUnloadHandler:interceptBaleCreation(baler, superFunc, baleFillType, fillLevel, baleServerId, baleTime, xmlFileName)
+	traceMethod("interceptBaleCreation")
 	local adjustedFillLevel = fillLevel
 	-- Override the fill level when unloading an unfinished bale
 	if self.overrideFillLevel >= 0 then

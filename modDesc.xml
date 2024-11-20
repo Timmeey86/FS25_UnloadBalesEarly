@@ -49,6 +49,7 @@ GitHub-Link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
         <sourceFile filename="scripts/UnloadBalesSettings.lua" />
         <sourceFile filename="scripts/UnloadBalesSettingsRepository.lua" />
         <sourceFile filename="scripts/UnloadBalesUI.lua" />
+        <sourceFile filename="scripts/UnloadBaleEarlyEvent.lua" />
         <sourceFile filename="scripts/EarlyUnloadHandler.lua" />
         <sourceFile filename="scripts/UnloadBalesEarly.lua" />
     </extraSourceFiles>

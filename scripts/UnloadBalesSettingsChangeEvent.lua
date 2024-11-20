@@ -27,8 +27,11 @@ function UnloadBalesSettingsChangeEvent:readStream(streamId, connection)
 
         local eventWasSentByServer = connection:getIsServer()
         if not eventWasSentByServer then
+            print(MOD_NAME .. ": Broadcasting event")
             -- We are the server. Boradcast the event to all other clients (except for the one which sent them)
             g_server:broadcastEvent(UnloadBalesSettingsChangeEvent.new(), nil, connection, nil)
+        else
+            print(MOD_NAME .. ": Not broadcasting since we are not the server")
         end
     else
         Logging.warning(MOD_NAME .. ": No settings object defined, ignoring settings sent by server")
