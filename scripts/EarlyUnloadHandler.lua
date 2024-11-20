@@ -70,6 +70,16 @@ function EarlyUnloadHandler:onHandleUnloadingBaleEvent(baler, superFunc)
 	superFunc(baler)
 end
 
+---Causes the baler to automatically start overloading its first chamber into its second one
+---@param baler Baler @The baler
+function EarlyUnloadHandler.startOverloading(baler)
+	traceMethod("startOverloading")
+	--Two-chamber vehicles: Reduce the overloading percentage so the baler starts unloading
+	local spec = baler.spec_baler
+	spec.buffer.overloadingStartFillLevelPct = g_currentMission.unloadBalesEarlySettings:getUnloadThresholdInPercent() / 100
+	spec.overloadingThresholdIsOverridden = true
+end
+
 ---Intercepts the action call in order to start overloading if necessary. 
 ---@param baler table @The baler instace
 ---@param superFunc function @The base game implementation
@@ -79,16 +89,20 @@ end
 ---@param param4 any @Unknown param (not needed, but forwarded to superFunc)
 function EarlyUnloadHandler.onActionEventUnloading(baler, superFunc, param1, param2, param3, param4)
 	traceMethod("onActionEventUnloading")
-	local spec = baler.spec_baler
 	if EarlyUnloadHandler.getCanOverloadBuffer(baler) then
 		traceMethod("onActionEventUnloading/can overload")
-		--Two-chamber vehicles: Reduce the overloading percentage so the baler starts unloading
-		spec.buffer.overloadingStartFillLevelPct = g_currentMission.unloadBalesEarlySettings:getUnloadThresholdInPercent() / 100
-		spec.overloadingThresholdIsOverridden = true
-		-- Ignore the event in this case, don't forward it
+		if g_server == nil then
+			-- Ask the server to trigger an overload
+			g_client:getServerConnection():sendEvent(OverloadChamberEarlyEvent.new(baler))
+		else
+			-- Single player and multiplayer host: Overload directly
+			EarlyUnloadHandler.startOverloading(baler)
+		end
+		-- Do not call super func since we wanted the overload rather than the unload
 	elseif g_server == nil and baler:getCanUnloadUnfinishedBale() then
 		-- Ask the server to trigger an early unload.
 		g_client:getServerConnection():sendEvent(UnloadBaleEarlyEvent.new(baler))
+		-- Do not call super func. The server will make sure the necessary functions get called on the clients
 	else
 		traceMethod("onActionEventUnloading/can not overload")
 		-- Forward the event through base game mechanism in all other cases

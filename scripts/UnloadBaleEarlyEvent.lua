@@ -27,7 +27,8 @@ local function dbgPrintMp(text)
         print(MOD_NAME .. ": " .. text)
     end
 end
----Reads settings which were sent by another network participant and then applies them locally
+
+---This will be executed on the server if a client sends an UnloadBaleEarly Event
 ---@param streamId any @The ID of the stream to read from.
 ---@param connection any @The connection which sent the event.
 function UnloadBaleEarlyEvent:readStream(streamId, connection)
@@ -44,7 +45,7 @@ function UnloadBaleEarlyEvent:readStream(streamId, connection)
     dbgPrintMp("Done receiving UnloadBaleEarlyEvent")
 end
 
----Sends event data, in this case exclusively from the client to the server
+---Asks the server to trigger an early unload for the baler stored in the event.
 ---@param streamId any @The stream ID.
 ---@param connection any @The connection to use.
 function UnloadBaleEarlyEvent:writeStream(streamId, connection)

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="92">
     <author>Farmsim Tim (timmeey86)</author>
-    <version>1.0.0.0</version>
+    <version>1.0.0.1</version>
     <title>
         <en>Unload Bales Early</en>
         <de>Ballen Frühzeitig Abladen</de>
@@ -9,6 +9,7 @@
         <pl>Wcześniejszy rozładunek bel</pl>
         <es>Descarga Anticipada de Pacas</es>
         <ea>Descarga Anticipada de Pacas</ea>
+        <it>Scarico Anticipato Delle Balle</it>
     </title>
     
     <description>
@@ -23,7 +24,13 @@ The mod works for:
 - Two-Chamber Cotton Harvesters and modded two-chamber balers
 
 Hotkeys: O: Unloads unfinished bales or overloads the first chamber to the second one. Dependent on the type of baler, you need to turn the baler on or off for this to work.
+
 GitHub link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
+
+Changelog:
+1.0.0.1:
+- Fixed unloading and overloading for multiplayer clients
+- Added italian translation provided by FirenzeIT
 ]]></en>
         <de><![CDATA[
 Beschreibung: Diese Mod erlaubt das frühzeitige Abladen von Ballen.
@@ -37,6 +44,11 @@ Die Mod funktioniert für:
 
 Tastenkombinationen: O: Lädt Ballen vorzeitig ab oder lädt den Inhalt von der ersten Kammer in die zweite Kammer über. Abhängig von der Art der Ballenpresse muss diese ein- oder ausgeschaltet sein, damit dies funktioniert.
 GitHub-Link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
+
+Changelog:
+1.0.0.1:
+- Fehler beim Abladen und Überladen im Mehrspielermodus behoben
+- Added italian translation provided by FirenzeIT
 ]]></de>
     </description>
     
@@ -50,6 +62,7 @@ GitHub-Link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
         <sourceFile filename="scripts/UnloadBalesSettingsRepository.lua" />
         <sourceFile filename="scripts/UnloadBalesUI.lua" />
         <sourceFile filename="scripts/UnloadBaleEarlyEvent.lua" />
+        <sourceFile filename="scripts/OverloadChamberEarlyEvent.lua" />
         <sourceFile filename="scripts/EarlyUnloadHandler.lua" />
         <sourceFile filename="scripts/UnloadBalesEarly.lua" />
     </extraSourceFiles>
@@ -62,6 +75,7 @@ GitHub-Link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
             <pl>Przeładunek do drugiej komory</pl>
             <es>Descarga en Segunda Camara</es>
             <ea>Descarga en Segunda Camara</ea>
+            <it>Scarico nella Seconda Camera</it>
         </text>
         <text name="ub_group_title">
             <en>Unload Bales Early</en>
@@ -70,6 +84,7 @@ GitHub-Link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
             <pl>Wcześniejszy rozładunek bel</pl>
             <es>Descarga anticipada de pacas</es>
             <ea>Descarga anticipada de pacas</ea>
+            <it>Scarico Anticipato delle Balle</it>
         </text>
     </l10n>
 </modDesc>
