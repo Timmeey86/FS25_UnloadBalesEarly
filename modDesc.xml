@@ -10,6 +10,7 @@
         <es>Descarga Anticipada de Pacas</es>
         <ea>Descarga Anticipada de Pacas</ea>
         <it>Scarico Anticipato Delle Balle</it>
+		<tr>Balyaları Erken Boşalt</tr>
     </title>
     
     <description>
@@ -76,6 +77,7 @@ Changelog:
             <es>Descarga en Segunda Camara</es>
             <ea>Descarga en Segunda Camara</ea>
             <it>Scarico nella Seconda Camera</it>
+			<tr>İkinci Bölmeye Aşırı Yükle</tr>
         </text>
         <text name="ub_group_title">
             <en>Unload Bales Early</en>
@@ -85,6 +87,7 @@ Changelog:
             <es>Descarga anticipada de pacas</es>
             <ea>Descarga anticipada de pacas</ea>
             <it>Scarico Anticipato delle Balle</it>
+			<tr>Balyaları Erken Boşalt</tr>
         </text>
     </l10n>
 </modDesc>
