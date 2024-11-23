@@ -39,17 +39,17 @@ Beschreibung: Diese Mod erlaubt das frühzeitige Abladen von Ballen.
 Die Mod funktioniert für:
 - Rundballenpressen (einschließlich Pressen für Pappeln)
 - Quaderballenpressen (nur, wenn ausgeschaltet)
-- Rundballenpress-/wickel-Kombinationen
-- Baumwollernter mit einer Kammer
-- Baumwollernter mit zwei Kammern und gemoddete Ballenpressen mit zwei Kammern
+- Rundballenpressen mit Wickler-Kombinationen
+- Einkammer-Baumwollernter (Platz für einen Ballen)
+- Zweikammer-Baumwollernter und gemoddete Zweikammer-Baumwollernter (Platz für zwei Ballen)
 
-Tastenkombinationen: O: Lädt Ballen vorzeitig ab oder lädt den Inhalt von der ersten Kammer in die zweite Kammer über. Abhängig von der Art der Ballenpresse muss diese ein- oder ausgeschaltet sein, damit dies funktioniert.
+Tastenkombinationen: O: Lädt Ballen vorzeitig ab oder lädt die Ballen von der ersten Kammer in die zweite Kammer über. Je nach Art der Ballenpresse muss diese ein- oder ausgeschaltet werden, damit das Abladen funktioniert.
 GitHub-Link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
 
-Changelog:
+Änderungen:
 1.0.0.1:
 - Fehler beim Abladen und Überladen im Mehrspielermodus behoben
-- Added italian translation provided by FirenzeIT
+- Italienische Übersetzung hinzugefügt, bereitgestellt durch FirenzeIT
 ]]></de>
     </description>
     
@@ -71,7 +71,7 @@ Changelog:
     <l10n>
         <text name="ub_overload_early">
             <en>Overload To Second Chamber</en>
-            <de>Lade in zweite Kammer über</de>
+            <de>In die zweite Kammer überladen</de>
             <ru>Перегрузка во вторую камеру</ru>
             <pl>Przeładunek do drugiej komory</pl>
             <es>Descarga en Segunda Camara</es>
