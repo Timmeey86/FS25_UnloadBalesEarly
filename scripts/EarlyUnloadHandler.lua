@@ -14,7 +14,7 @@ function EarlyUnloadHandler.new()
 	return self
 end
 
-local traceCalls = false
+local traceCalls = true
 local function traceMethod(methodName)
 	if traceCalls then
 		print(MOD_NAME .. ": " .. methodName)
@@ -45,6 +45,20 @@ function EarlyUnloadHandler.onBalerLoad(baler, superFunc, savegame)
 	spec.overloadingThresholdIsOverridden = false
 end
 
+---Scales the bale to the maximum bale size and sets the given fill level
+---Note that the fill level will usually be the maximum at this point, and will be overridden by the server later on
+---@param baler Baler @The baler which will be unloaded shortly after
+---@param fillLevel number @The fill level to be set
+function EarlyUnloadHandler.scaleBaleToMax(baler, fillLevel)
+	local spec = baler.spec_baler
+	baler:updateDummyBale(spec.dummyBale, spec.fillTypeIndex, fillLevel, fillLevel)
+	baler:setAnimationTime(spec.baleTypes[spec.currentBaleTypeIndex].animations.fill, 1)
+	if g_server then
+		-- If we are a server, inform all clients about the bale size change. Will do nothing if no client is connected
+		g_server:broadcastEvent(OverrideBaleSizeEvent.new(baler, fillLevel), nil, connection, nil)
+	end
+end
+
 ---Unloads the bale after the player pressed the hotkey
 ---@param baler table @The baler instance
 ---@param superFunc function @The base game implementation
@@ -55,10 +69,9 @@ function EarlyUnloadHandler:onHandleUnloadingBaleEvent(baler, superFunc)
 		traceMethod("onHandleUnloadingBaleEvent/create bale")
 		-- Remember the current fill level of the baler
 		self.overrideFillLevel = baler:getFillUnitFillLevel(spec.fillUnitIndex)
-		-- Set the bale to max fill level so the physics doesn't bug out when unloading
+		-- Set the bale to max fill level so the physics doesn't bug out when unloading. This will also cause clients to update their bale sizes
 		local maxFillLevel = baler:getFillUnitCapacity(spec.fillUnitIndex)
-		baler:updateDummyBale(spec.dummyBale, spec.fillTypeIndex, maxFillLevel, maxFillLevel)
-		baler:setAnimationTime(spec.baleTypes[spec.currentBaleTypeIndex].animations.fill, 1)
+		EarlyUnloadHandler.scaleBaleToMax(baler, maxFillLevel)
 		-- Finish the bale, which will override the fill level
 		baler:finishBale()
 	end

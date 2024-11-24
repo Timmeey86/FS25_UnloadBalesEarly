@@ -66,6 +66,7 @@ Changelog:
         <sourceFile filename="scripts/UnloadBalesUI.lua" />
         <sourceFile filename="scripts/UnloadBaleEarlyEvent.lua" />
         <sourceFile filename="scripts/OverloadChamberEarlyEvent.lua" />
+        <sourceFile filename="scripts/OverrideBaleSizeEvent.lua" />
         <sourceFile filename="scripts/EarlyUnloadHandler.lua" />
         <sourceFile filename="scripts/UnloadBalesEarly.lua" />
     </extraSourceFiles>
