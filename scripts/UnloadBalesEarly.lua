@@ -16,6 +16,7 @@ end)
 Baler.createBale = Utils.overwrittenFunction(Baler.createBale, function(baler, superFunc, baleFillType, fillLevel, baleServerId, baleTime, xmlFileName)
 	return earlyUnloadHandler:interceptBaleCreation(baler, superFunc, baleFillType, fillLevel, baleServerId, baleTime, xmlFileName)
 end)
+Baler.actionEventUnloading = Utils.overwrittenFunction(Baler.actionEventUnloading, function(...) earlyUnloadHandler:onActionEventUnloading(...) end)
 
 -- Override methods which don't require any settings
 Baler.onLoad = Utils.overwrittenFunction(Baler.onLoad, EarlyUnloadHandler.onBalerLoad)
@@ -23,7 +24,6 @@ Baler.updateActionEvents = Utils.overwrittenFunction(Baler.updateActionEvents, E
 Baler.onRegisterActionEvents = Utils.overwrittenFunction(Baler.onRegisterActionEvents, EarlyUnloadHandler.onRegisterActionEvents)
 Baler.getCanUnloadUnfinishedBale = Utils.overwrittenFunction(Baler.getCanUnloadUnfinishedBale, EarlyUnloadHandler.getCanUnloadUnfinishedBale)
 Baler.onUpdateTick = Utils.appendedFunction(Baler.onUpdateTick, EarlyUnloadHandler.after_onUpdateTick)
-Baler.actionEventUnloading = Utils.overwrittenFunction(Baler.actionEventUnloading, EarlyUnloadHandler.onActionEventUnloading)
 
 -----------------------
 --- Enable settings ---

@@ -10,7 +10,7 @@
         <es>Descarga Anticipada de Pacas</es>
         <ea>Descarga Anticipada de Pacas</ea>
         <it>Scarico Anticipato Delle Balle</it>
-		<tr>Balyaları Erken Boşalt</tr>
+        <tr>Balyaları Erken Boşalt</tr>
     </title>
     
     <description>
@@ -31,7 +31,8 @@ GitHub link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
 Changelog:
 1.0.0.1:
 - Fixed unloading and overloading for multiplayer clients
-- Added italian translation provided by FirenzeIT
+- Added Italian translation provided by FirenzeIT
+- Added Turkish translation provided by RuyaSavascisi
 ]]></en>
         <de><![CDATA[
 Beschreibung: Diese Mod erlaubt das frühzeitige Abladen von Ballen.
@@ -49,7 +50,8 @@ GitHub-Link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
 Changelog:
 1.0.0.1:
 - Fehler beim Abladen und Überladen im Mehrspielermodus behoben
-- Added italian translation provided by FirenzeIT
+- Italienische Übersetzung hinzugefügt. Bereitgestellt von FirenzeIT
+- Türkische Übersetzung hinzugefügt. Bereitgestellt von RuyaSavascisi
 ]]></de>
     </description>
     
@@ -77,7 +79,7 @@ Changelog:
             <es>Descarga en Segunda Camara</es>
             <ea>Descarga en Segunda Camara</ea>
             <it>Scarico nella Seconda Camera</it>
-			<tr>İkinci Bölmeye Aşırı Yükle</tr>
+            <tr>İkinci Bölmeye Aşırı Yükle</tr>
         </text>
         <text name="ub_group_title">
             <en>Unload Bales Early</en>
@@ -87,7 +89,7 @@ Changelog:
             <es>Descarga anticipada de pacas</es>
             <ea>Descarga anticipada de pacas</ea>
             <it>Scarico Anticipato delle Balle</it>
-			<tr>Balyaları Erken Boşalt</tr>
+            <tr>Balyaları Erken Boşalt</tr>
         </text>
     </l10n>
 </modDesc>
