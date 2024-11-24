@@ -40,11 +40,11 @@ Beschreibung: Diese Mod erlaubt das frühzeitige Abladen von Ballen.
 Die Mod funktioniert für:
 - Rundballenpressen (einschließlich Pressen für Pappeln)
 - Quaderballenpressen (nur, wenn ausgeschaltet)
-- Rundballenpress-/wickel-Kombinationen
+- Press-/Wickelkombinationen für Rundballen
 - Baumwollernter mit einer Kammer
 - Baumwollernter mit zwei Kammern und gemoddete Ballenpressen mit zwei Kammern
 
-Tastenkombinationen: O: Lädt Ballen vorzeitig ab oder lädt den Inhalt von der ersten Kammer in die zweite Kammer über. Abhängig von der Art der Ballenpresse muss diese ein- oder ausgeschaltet sein, damit dies funktioniert.
+Tastenkombinationen: O: Lädt Ballen vorzeitig ab oder lädt den Inhalt von der ersten Kammer in die zweite Kammer über. Je nach Art der Ballenpresse muss diese ein- oder ausgeschaltet werden, damit dies funktioniert.
 GitHub-Link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
 
 Changelog:
