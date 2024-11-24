@@ -98,8 +98,9 @@ function EarlyUnloadHandler:onActionEventUnloading(baler, superFunc, param1, par
 		end
 		-- Do not call super func since we wanted the overload rather than the unload
 	elseif g_server == nil and baler:getCanUnloadUnfinishedBale() then
+		traceMethod("onActionEventUnloading/can unload as a client")
 		local spec = baler.spec_baler
-		if spec.unloadingState == Baler.UNLOADING_CLOSED and #spec.bales == 0 and baler:getCanUnloadUnfinishedBale() then
+		if spec.unloadingState == Baler.UNLOADING_CLOSED and #spec.bales == 0 then
 			-- override the fill level so the bale gets 
 			self.overrideFillLevel = baler:getFillUnitFillLevel(spec.fillUnitIndex)
 			-- Set the bale to max fill level so the physics doesn't bug out when unloading
