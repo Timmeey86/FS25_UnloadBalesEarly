@@ -14,7 +14,7 @@ function EarlyUnloadHandler.new()
 	return self
 end
 
-local traceCalls = true
+local traceCalls = false
 local function traceMethod(methodName)
 	if traceCalls then
 		print(MOD_NAME .. ": " .. methodName)
@@ -189,6 +189,8 @@ function EarlyUnloadHandler.updateActionEvents(baler, superFunc)
 			if spec.unloadingState == Baler.UNLOADING_CLOSED and not spec.platformReadyToDrop then
 				g_inputBinding:setActionEventText(actionEvent.actionEventId, g_i18n:getText("ub_overload_early"))
 				showAction = true
+			else
+				traceMethod(("udpateActionEvents/unloadingState = %d, not plafromReadyToDrop = %s"):format(spec.unloadingState, not spec.platformReadyToDrop))
 			end
 		end
 		if not showAction and baler:isUnloadingAllowed() and (spec.hasUnloadingAnimation or spec.allowsBaleUnloading) then
@@ -198,7 +200,11 @@ function EarlyUnloadHandler.updateActionEvents(baler, superFunc)
 					g_inputBinding:setActionEventText(actionEvent.actionEventId, spec.texts.unloadUnfinishedBale)
 					showAction = true
 				end
+			else
+				traceMethod(("updateActionEvents/unloadingState = %d"):format(spec.unloadingState))
 			end
+		elseif not showAction then
+			traceMethod(("updateActionEvents/isUnloadingAllowed = %s, hasUnloadingAnimation = %s, allowsBaleUnloading = %s"):format(baler:isUnloadingAllowed(), spec.hasUnloadingAnimation, spec.allowsBaleUnloading))
 		end
 		g_inputBinding:setActionEventActive(actionEvent.actionEventId, showAction)
 	end

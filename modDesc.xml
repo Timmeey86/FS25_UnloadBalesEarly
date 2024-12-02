@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="92">
+<modDesc descVersion="93">
     <author>Farmsim Tim (timmeey86)</author>
     <version>1.0.0.1</version>
     <title>
         <en>Unload Bales Early</en>
         <de>Ballen Frühzeitig Abladen</de>
         <ru>Выгрузка Неполных Тюков</ru>
-        <pl>Wcześniejszy rozładunek bel</pl>
-        <es>Descarga Anticipada de Pacas</es>
-        <ea>Descarga Anticipada de Pacas</ea>
+        <pl>Wcześniejszy Rozładunek Bel</pl>
+        <es>Descarga Anticipada De Pacas</es>
+        <ea>Descarga Anticipada De Pacas</ea>
         <it>Scarico Anticipato Delle Balle</it>
         <tr>Balyaları Erken Boşalt</tr>
     </title>
