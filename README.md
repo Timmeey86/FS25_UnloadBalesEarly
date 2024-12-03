@@ -37,7 +37,7 @@ Many supported baler types
 ## How to install
 
 1. Download the newest zip from the [Releases page](https://github.com/Timmeey86/FS25_UnloadBalesEarly/releases)
-1. Place the zip file in your FS22 mod folder
+1. Place the zip file in your FS25 mod folder
 1. Start the game and use like any other mod
 
 ## How to debug/code
