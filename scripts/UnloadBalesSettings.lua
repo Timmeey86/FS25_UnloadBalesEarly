@@ -19,10 +19,10 @@ end
 function UnloadBalesSettings:publishNewSettings()
 	if g_server ~= nil then
 		-- Broadcast to other clients, if any are connected
-		g_server:broadcastEvent(UnloadBalesSettingsChangeEvent.new(self))
+		g_server:broadcastEvent(UnloadBalesSettingsChangeEvent.new())
 	else
 		-- Ask the server to broadcast the event
-		g_client:getServerConnection():sendEvent(UnloadBalesSettingsChangeEvent.new(self))
+		g_client:getServerConnection():sendEvent(UnloadBalesSettingsChangeEvent.new())
 	end
 end
 

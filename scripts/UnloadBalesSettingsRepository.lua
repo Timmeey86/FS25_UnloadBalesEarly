@@ -2,8 +2,6 @@
 ---This class is responsible for reading and writing settings
 UnloadBalesSettingsRepository = {
 	MAIN_KEY = "UnloadBalesEarly",
-	ENABLE_OVERLOADING_KEY = "enableOverloading",
-	ENABLE_UNLOADING_KEY = "enableUnloading",
 	OVERLOAD_THRESHOLD_KEY = "overloadingThreshold",
 	UNLOADING_THRESHOLD_KEY = "unloadingThreshold"
 }
@@ -21,10 +19,8 @@ function UnloadBalesSettingsRepository.storeSettings(settings)
 	local xmlFileId = createXMLFile("UnloadBalesEarly", xmlPath, UnloadBalesSettingsRepository.MAIN_KEY)
 
 	-- Add XML data in memory
-	setXMLBool(xmlFileId, UnloadBalesSettingsRepository.getPathForValue(UnloadBalesSettingsRepository.ENABLE_OVERLOADING_KEY), settings.enableOverloading)
-	setXMLBool(xmlFileId, UnloadBalesSettingsRepository.getPathForValue(UnloadBalesSettingsRepository.ENABLE_UNLOADING_KEY), settings.enableUnloading)
-	setXMLInt(xmlFileId, UnloadBalesSettingsRepository.getPathForStateAttribute(UnloadBalesSettingsRepository.OVERLOAD_THRESHOLD_KEY), settings.overloadingThreshold)
-	setXMLInt(xmlFileId, UnloadBalesSettingsRepository.getPathForStateAttribute(UnloadBalesSettingsRepository.UNLOADING_THRESHOLD_KEY), settings.unloadingThreshold)
+	setXMLInt(xmlFileId, UnloadBalesSettingsRepository.getPathForStateAttribute(UnloadBalesSettingsRepository.OVERLOAD_THRESHOLD_KEY), settings.overloadingThreshold or 0)
+	setXMLInt(xmlFileId, UnloadBalesSettingsRepository.getPathForStateAttribute(UnloadBalesSettingsRepository.UNLOADING_THRESHOLD_KEY), settings.unloadingThreshold or 0)
 
 	-- Write the XML file to disk
 	saveXMLFile(xmlFileId)
@@ -55,11 +51,14 @@ function UnloadBalesSettingsRepository.restoreSettings()
 	end
 
 	-- Read the values from memory
-	settings.enableOverloading = getXMLBool(xmlFileId, UnloadBalesSettingsRepository.getPathForValue(UnloadBalesSettingsRepository.ENABLE_OVERLOADING_KEY)) or settings.enableOverloading
-	settings.enableUnloading = getXMLBool(xmlFileId, UnloadBalesSettingsRepository.getPathForValue(UnloadBalesSettingsRepository.ENABLE_UNLOADING_KEY)) or settings.enableUnloading
 	settings.overloadingThreshold = getXMLInt(xmlFileId, UnloadBalesSettingsRepository.getPathForStateAttribute(UnloadBalesSettingsRepository.OVERLOAD_THRESHOLD_KEY)) or settings.overloadingThreshold
 	settings.unloadingThreshold = getXMLInt(xmlFileId, UnloadBalesSettingsRepository.getPathForStateAttribute(UnloadBalesSettingsRepository.UNLOADING_THRESHOLD_KEY)) or settings.unloadingThreshold
-
+	if settings.overloadingThreshold == 0 then
+		settings.overloadingThreshold = nil
+	end
+	if settings.unloadingThreshold == 0 then
+		settings.overloadingThreshold = nil
+	end
 	print(MOD_NAME .. ": Successfully restored settings")
 
 	return settings
