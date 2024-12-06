@@ -71,29 +71,6 @@ Changelog:
 		<sourceFile filename="scripts/EarlyUnloadHandler.lua" />
 		<sourceFile filename="scripts/UnloadBalesEarly.lua" />
 	</extraSourceFiles>
+
 	<l10n filenamePrefix="i18n/locale" />
-<!--
-	<l10n>
-		<text name="ub_overload_early">
-			<en>Overload To Second Chamber</en>
-			<de>Lade in zweite Kammer über</de>
-			<ru>Перегрузка во вторую камеру</ru>
-			<pl>Przeładunek do drugiej komory</pl>
-			<es>Descarga en Segunda Camara</es>
-			<ea>Descarga en Segunda Camara</ea>
-			<it>Scarico nella Seconda Camera</it>
-			<tr>İkinci Bölmeye Aşırı Yükle</tr>
-		</text>
-		<text name="ub_group_title">
-			<en>Unload Bales Early</en>
-			<de>Ballen Frühzeitig Abladen</de>
-			<ru>Выгрузка неполных тюков</ru>
-			<pl>Wcześniejszy rozładunek bel</pl>
-			<es>Descarga anticipada de pacas</es>
-			<ea>Descarga anticipada de pacas</ea>
-			<it>Scarico Anticipato delle Balle</it>
-			<tr>Balyaları Erken Boşalt</tr>
-		</text>
-	</l10n>
--->
 </modDesc>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<l10n>
+	<translationContributors>FirenzeIT</translationContributors>
+	<texts>
+		<text name="ub_section_title" text="Scarico Anticipato Delle Balle" />
+		<text name="ub_overload_early" text="Scarico nella Seconda Camera" />
+		<text name="ub_overloadingThreshold_short" text="Required Overload Percentage" />
+		<text name="ub_overloadingThreshold_long" text="Overloading early will only be possible if the first chamber is filled to at least this percentage. '-' means the feature is disabled." />
+		<text name="ub_unloadingThreshold_short" text="Required Unload Percentage" />
+		<text name="ub_unloadingThreshold_long" text="Unloading early will only be possible if the bale has been filled to at least this percentage. '-' means the feature is disabled." />
+	</texts>
+</l10n>
