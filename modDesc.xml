@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="93">
-    <author>Farmsim Tim (timmeey86)</author>
-    <version>1.0.0.1</version>
-    <title>
-        <en>Unload Bales Early</en>
-        <de>Ballen Frühzeitig Abladen</de>
-        <ru>Выгрузка Неполных Тюков</ru>
-        <pl>Wcześniejszy Rozładunek Bel</pl>
-        <es>Descarga Anticipada De Pacas</es>
-        <ea>Descarga Anticipada De Pacas</ea>
-        <it>Scarico Anticipato Delle Balle</it>
-        <tr>Balyaları Erken Boşalt</tr>
-    </title>
-    
-    <description>
-        <en><![CDATA[
+	<author>Farmsim Tim (timmeey86)</author>
+	<version>1.1.0.0</version>
+	<title>
+		<en>Unload Bales Early</en>
+		<de>Ballen Frühzeitig Abladen</de>
+		<ru>Выгрузка Неполных Тюков</ru>
+		<pl>Wcześniejszy Rozładunek Bel</pl>
+		<es>Descarga Anticipada De Pacas</es>
+		<ea>Descarga Anticipada De Pacas</ea>
+		<it>Scarico Anticipato Delle Balle</it>
+		<tr>Balyaları Erken Boşalt</tr>
+	</title>
+	
+	<description>
+		<en><![CDATA[
 Description: This mod allows unloading unfinished bales early.
 
 The mod works for:
@@ -34,7 +34,7 @@ Changelog:
 - Added Italian translation provided by FirenzeIT
 - Added Turkish translation provided by RuyaSavascisi
 ]]></en>
-        <de><![CDATA[
+		<de><![CDATA[
 Beschreibung: Diese Mod erlaubt das frühzeitige Abladen von Ballen.
 
 Die Mod funktioniert für:
@@ -53,44 +53,47 @@ Changelog:
 - Italienische Übersetzung hinzugefügt. Bereitgestellt von FirenzeIT
 - Türkische Übersetzung hinzugefügt. Bereitgestellt von RuyaSavascisi
 ]]></de>
-    </description>
-    
-    <multiplayer supported="true" />
+	</description>
+	
+	<multiplayer supported="true" />
 
-    <iconFilename>icon_UnloadBalesEarly.dds</iconFilename>
+	<iconFilename>icon_UnloadBalesEarly.dds</iconFilename>
 
-    <extraSourceFiles>
-        <sourceFile filename="scripts/UnloadBalesSettingsChangeEvent.lua" />
-        <sourceFile filename="scripts/UnloadBalesSettings.lua" />
-        <sourceFile filename="scripts/UnloadBalesSettingsRepository.lua" />
-        <sourceFile filename="scripts/UnloadBalesUI.lua" />
-        <sourceFile filename="scripts/UnloadBaleEarlyEvent.lua" />
-        <sourceFile filename="scripts/OverloadChamberEarlyEvent.lua" />
-        <sourceFile filename="scripts/OverrideBaleSizeEvent.lua" />
-        <sourceFile filename="scripts/EarlyUnloadHandler.lua" />
-        <sourceFile filename="scripts/UnloadBalesEarly.lua" />
-    </extraSourceFiles>
-
-    <l10n>
-        <text name="ub_overload_early">
-            <en>Overload To Second Chamber</en>
-            <de>Lade in zweite Kammer über</de>
-            <ru>Перегрузка во вторую камеру</ru>
-            <pl>Przeładunek do drugiej komory</pl>
-            <es>Descarga en Segunda Camara</es>
-            <ea>Descarga en Segunda Camara</ea>
-            <it>Scarico nella Seconda Camera</it>
-            <tr>İkinci Bölmeye Aşırı Yükle</tr>
-        </text>
-        <text name="ub_group_title">
-            <en>Unload Bales Early</en>
-            <de>Ballen Frühzeitig Abladen</de>
-            <ru>Выгрузка неполных тюков</ru>
-            <pl>Wcześniejszy rozładunek bel</pl>
-            <es>Descarga anticipada de pacas</es>
-            <ea>Descarga anticipada de pacas</ea>
-            <it>Scarico Anticipato delle Balle</it>
-            <tr>Balyaları Erken Boşalt</tr>
-        </text>
-    </l10n>
+	<extraSourceFiles>
+		<sourceFile filename="scripts/lib/UIHelper.lua" />
+		<sourceFile filename="scripts/UnloadBalesSettingsChangeEvent.lua" />
+		<sourceFile filename="scripts/UnloadBalesSettings.lua" />
+		<sourceFile filename="scripts/UnloadBalesSettingsRepository.lua" />
+		<sourceFile filename="scripts/UnloadBalesUI.lua" />
+		<sourceFile filename="scripts/UnloadBaleEarlyEvent.lua" />
+		<sourceFile filename="scripts/OverloadChamberEarlyEvent.lua" />
+		<sourceFile filename="scripts/OverrideBaleSizeEvent.lua" />
+		<sourceFile filename="scripts/EarlyUnloadHandler.lua" />
+		<sourceFile filename="scripts/UnloadBalesEarly.lua" />
+	</extraSourceFiles>
+    <l10n filenamePrefix="i18n/locale" />
+<!--
+	<l10n>
+		<text name="ub_overload_early">
+			<en>Overload To Second Chamber</en>
+			<de>Lade in zweite Kammer über</de>
+			<ru>Перегрузка во вторую камеру</ru>
+			<pl>Przeładunek do drugiej komory</pl>
+			<es>Descarga en Segunda Camara</es>
+			<ea>Descarga en Segunda Camara</ea>
+			<it>Scarico nella Seconda Camera</it>
+			<tr>İkinci Bölmeye Aşırı Yükle</tr>
+		</text>
+		<text name="ub_group_title">
+			<en>Unload Bales Early</en>
+			<de>Ballen Frühzeitig Abladen</de>
+			<ru>Выгрузка неполных тюков</ru>
+			<pl>Wcześniejszy rozładunek bel</pl>
+			<es>Descarga anticipada de pacas</es>
+			<ea>Descarga anticipada de pacas</ea>
+			<it>Scarico Anticipato delle Balle</it>
+			<tr>Balyaları Erken Boşalt</tr>
+		</text>
+	</l10n>
+-->
 </modDesc>

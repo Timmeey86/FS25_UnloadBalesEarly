@@ -29,27 +29,25 @@ Baler.onUpdateTick = Utils.appendedFunction(Baler.onUpdateTick, EarlyUnloadHandl
 --- Enable settings ---
 -----------------------
 
----Creates a settings object which can be accessed from the UI and the rest of the code
----@param   mission     table   @The object which is later available as g_currentMission
-local function createModSettings(mission)
-	-- Register the settings object globally so we can access it from the event class and others later
-    mission.unloadBalesEarlySettings = UnloadBalesSettings.new()
-    addModEventListener(mission.unloadBalesEarlySettings)
-end
-Mission00.load = Utils.prependedFunction(Mission00.load, createModSettings)
+local settings = {}
 
 ---Destroys the settings object when it is no longer needed.
 local function destroyModSettings()
-    if g_currentMission ~= nil and g_currentMission.unloadBalesEarlySettings ~= nil then
-        removeModEventListener(g_currentMission.unloadBalesEarlySettings)
-        g_currentMission.unloadBalesEarlySettings = nil
-    end
+	if g_currentMission ~= nil and g_currentMission.unloadBalesEarlySettings ~= nil then
+		removeModEventListener(g_currentMission.unloadBalesEarlySettings)
+		g_currentMission.unloadBalesEarlySettings = nil
+	end
 end
 FSBaseMission.delete = Utils.appendedFunction(FSBaseMission.delete, destroyModSettings)
 
 ---Restore the settings when the map has finished loading
 BaseMission.loadMapFinished = Utils.prependedFunction(BaseMission.loadMapFinished, function(...)
-	UnloadBalesSettingsRepository.restoreSettings()
+	settings = UnloadBalesSettingsRepository.restoreSettings()
+	addModEventListener(settings)
+	local unloadBalesUi = UnloadBalesUI.new(settings)
+	unloadBalesUi:injectUiSettings()
 end)
 -- Save settings when the savegame is being saved
-FSBaseMission.saveSavegame = Utils.appendedFunction(FSBaseMission.saveSavegame, UnloadBalesSettingsRepository.storeSettings)
+FSBaseMission.saveSavegame = Utils.appendedFunction(FSBaseMission.saveSavegame, function()
+	UnloadBalesSettingsRepository.storeSettings(settings)
+end)

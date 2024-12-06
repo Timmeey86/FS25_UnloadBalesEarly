@@ -1,93 +1,75 @@
+---This class adds UI controls for settings of the mod
+---@class UnloadBalesUI
+---@field settings UnloadBalesSettings @The settings object
+---@field controls table @A list of all UI controls
+---@field sectionTitle table @The UI header for UnloadBalesEarly settings
+---@field threshold table @The UI control for the unload threshold
+---@field enableOverloading table @The UI control for toggling overloading
+---@field enableUnloading table @The UI control for toggling unloading
 UnloadBalesUI = {
-    I18N_IDS = {
-        GROUP_TITLE = 'ub_group_title',
-        UNLOAD_THRESHOLD_LABEL = 'ub_unload_threshold_label',
-        UNLOAD_THRESHOLD_DESC = 'ub_unload_threshold_desc'
-    }
 }
---[[
 
----Creates an element which allows choosing one out of several text values
----@param generalSettingsPage   table       @The base game object for the settings page
----@param id                    string      @The unique ID of the new element
----@param i18nLabelId           string      @The key used for looking up the translation of the label
----@param i18nDescriptionId     string      @The key used for looking up the translation of the description
----@param values                table       @A list of values
----@param callbackFunc          string      @The name of the function to call when the value changes
----@param isPercentage          boolean     @True if this is a percentage value
----@return                      table       @The created object
-function UnloadBalesUI.createChoiceElement(generalSettingsPage, id, i18nLabelId, i18nDescriptionId, values, callbackFunc, isPercentage)
-    -- Clone an existing element and adjust it, that's way easier than setting it up properly from scratch
-    local element = generalSettingsPage.checkUseEasyArmControl:clone()
+local UnloadBalesUI_mt = Class(UnloadBalesUI)
 
-    -- Make sure our settings object receives events
-    element.target = g_currentMission.unloadBalesEarlySettings
-    -- Change ID, label, description and the function which shall be called on change
-    element.id = id
-    element:setLabel(g_i18n:getText(i18nLabelId))
-    element.elements[6]:setText(g_i18n:getText(i18nDescriptionId))
-    element:setCallback("onClickCallback", callbackFunc)
-    -- Change the values
-    local texts = {}
-    for _, valueEntry in pairs(values) do
-        local text = tostring(valueEntry)
-        if isPercentage then
-            text = text .. "%"
-        end
-        table.insert(texts, text)
-    end
-    element:setTexts(texts)
+---Creates a new instance
+---@param settings UnloadBalesSettings @The settings object
+---@return UnloadBalesUI @The new instance
+function UnloadBalesUI.new(settings)
+	local self = setmetatable({}, UnloadBalesUI_mt)
 
-    -- Add the element to the settings page
-    generalSettingsPage.boxLayout:addElement(element)
-
-    return element
+	self.controls = {}
+	self.settings = settings
+	self.isInitialized = false
+	return self
 end
 
----This gets called every time the settings page gets opened
----@param   generalSettingsPage     table   @The instance of the base game's general settings page
-function UnloadBalesUI.onFrameOpen(generalSettingsPage)
-    -- Initialize on demand, and only update on each subsequent frame open
-    if generalSettingsPage.unloadBalesEarlyInitialized then
-        UnloadBalesUI.updateUiElements(generalSettingsPage)
-        return
-    end
+---Injects the UI into the base game UI
+function UnloadBalesUI:injectUiSettings()
+	if self.isInitialized then
+		return
+	end
+	self.isInitialized = true
 
-    -- Create a section for our settings
-    local groupTitle = TextElement.new()
-    groupTitle:applyProfile("settingsMenuSubtitle", true)
-    groupTitle:setText(g_i18n:getText(UnloadBalesUI.I18N_IDS.GROUP_TITLE))
-    generalSettingsPage.boxLayout:addElement(groupTitle)
+	print(MOD_NAME .. ": Injecting UI settings")
+	-- Get a reference to the base game general settings page
+	local settingsPage = g_gui.screenControllers[InGameMenu].pageSettings
 
-    -- Create elements for the actual settings
-    generalSettingsPage.ub_unloadThresholdElement = UnloadBalesUI.createChoiceElement(
-        generalSettingsPage, "ub_unloadThresholdElement", UnloadBalesUI.I18N_IDS.UNLOAD_THRESHOLD_LABEL, UnloadBalesUI.I18N_IDS.UNLOAD_THRESHOLD_DESC,
-        UnloadBalesSettings.AVAILABLE_THRESHOLDS, "onUnloadThresholdChanged", true
-    )
+	-- Define the UI controls. For each control, a <prefix>_<name>_short and _long key must exist in the i18n values
+	local controlProperties = {
+		{ name = "enableOverloading", autoBind = true },
+		{ name = "enableUnloading", autoBind = true },
+		{ name = "overloadingThreshold", min = 0, max = 90, step = 10, autoBind = true, nillable = true },
+		{ name = "unloadingThreshold", min = 0, max = 90, step = 10, autoBind = true, nillable = true }
+	}
+	UIHelper.createControlsDynamically(settingsPage, "ub_section_title", self, controlProperties, "ub_")
+	UIHelper.setupAutoBindControls(self, self.settings, UnloadBalesUI.onSettingsChange)
 
-    -- Apply the initial values
-    UnloadBalesUI.updateUiElements(generalSettingsPage)
+	-- Apply initial values
+	self:updateUiElements()
 
-    generalSettingsPage.unloadBalesEarlyInitialized = true
+	-- Trigger an update in order to enable/disable controls on settings frame open
+	InGameMenuSettingsFrame.onFrameOpen = Utils.appendedFunction(InGameMenuSettingsFrame.onFrameOpen, function()
+		self:updateUiElements(true) -- skip autobind controls
+	end)
 end
 
----Updates the UI elements to the current settings
----@param   generalSettingsPage     table   @The instance of the base game's general settings page
-function UnloadBalesUI.updateUiElements(generalSettingsPage)
-    local settings = g_currentMission.unloadBalesEarlySettings
-    if settings == nil then
-        Logging.warning(MOD_NAME .. ": Failed updating settings UI: global settings object not found")
-        return
-    end
-
-    -- Reflect the current settings in the UI
-    generalSettingsPage.ub_unloadThresholdElement:setState(settings:getUnloadThresholdIndex())
-
-    -- Disable if multiplayer and player is not an admin
-    local isAdmin = g_currentMission:getIsServer() or g_currentMission.isMasterUser
-    generalSettingsPage.ub_unloadThresholdElement:setDisabled(not isAdmin)
+function UnloadBalesUI:onSettingsChange()
+	self:updateUiElements()
+	self.settings:publishNewSettings()
 end
 
--- Register overrides/extensions
-InGameMenuGeneralSettingsFrame.onFrameOpen = Utils.appendedFunction(InGameMenuGeneralSettingsFrame.onFrameOpen, UnloadBalesUI.onFrameOpen)
-]]
+function UnloadBalesUI:updateUiElements(skipAutoBindControls)
+	if not skipAutoBindControls then
+		-- Note: This method is created dynamically by UIHelper.setupAutoBindControls
+		self.populateAutoBindControls()
+	end
+
+	local isAdmin = g_currentMission:getIsServer() or g_currentMission.isMasterUser
+	for _, control in ipairs(self.controls) do
+		control:setDisabled(not isAdmin)
+	end
+
+	-- Update the focus manager
+	local settingsPage = g_gui.screenControllers[InGameMenu].pageSettings
+	settingsPage.generalSettingsLayout:invalidateLayout()
+end
