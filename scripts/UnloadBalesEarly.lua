@@ -1,8 +1,10 @@
 local modDirectory = g_currentModDirectory or ""
 MOD_NAME = g_currentModName or "unknown"
 
+---@class UnloadBalesEarly
+---@field settings UnloadBalesSettings @The settings
 UnloadBalesEarly = {}
-
+UnloadBalesEarly.settings = nil
 ---------------------------
 --- Enable early unload ---
 ---------------------------
@@ -29,25 +31,23 @@ Baler.onUpdateTick = Utils.appendedFunction(Baler.onUpdateTick, EarlyUnloadHandl
 --- Enable settings ---
 -----------------------
 
-local settings = {}
-
 ---Destroys the settings object when it is no longer needed.
 local function destroyModSettings()
-	if g_currentMission ~= nil and g_currentMission.unloadBalesEarlySettings ~= nil then
-		removeModEventListener(g_currentMission.unloadBalesEarlySettings)
-		g_currentMission.unloadBalesEarlySettings = nil
+	if UnloadBalesEarly.settings ~= nil then
+		removeModEventListener(UnloadBalesEarly.settings)
+		UnloadBalesEarly.settings = nil
 	end
 end
 FSBaseMission.delete = Utils.appendedFunction(FSBaseMission.delete, destroyModSettings)
 
 ---Restore the settings when the map has finished loading
 BaseMission.loadMapFinished = Utils.prependedFunction(BaseMission.loadMapFinished, function(...)
-	settings = UnloadBalesSettingsRepository.restoreSettings()
-	addModEventListener(settings)
-	local unloadBalesUi = UnloadBalesUI.new(settings)
+	UnloadBalesEarly.settings = UnloadBalesSettingsRepository.restoreSettings()
+	addModEventListener(UnloadBalesEarly.settings)
+	local unloadBalesUi = UnloadBalesUI.new(UnloadBalesEarly.settings)
 	unloadBalesUi:injectUiSettings()
 end)
 -- Save settings when the savegame is being saved
 FSBaseMission.saveSavegame = Utils.appendedFunction(FSBaseMission.saveSavegame, function()
-	UnloadBalesSettingsRepository.storeSettings(settings)
+	UnloadBalesSettingsRepository.storeSettings(UnloadBalesEarly.settings)
 end)

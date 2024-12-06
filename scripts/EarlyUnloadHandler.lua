@@ -3,14 +3,16 @@
 ---for balers which weren't intended to have that functionality.
 ---@class EarlyUnloadHandler
 ---@field overrideFillLevel number @If this value is greater than zero during Baler.createBale, the bale's amount of liters will be overwritten with this value
+---@field settings UnloadBalesSettings @The settings object
 EarlyUnloadHandler = {}
 local EarlyUnloadHandler_mt = Class(EarlyUnloadHandler)
 
 ---Creates a new instance
 ---@return table @The new instance
-function EarlyUnloadHandler.new()
+function EarlyUnloadHandler.new(settings)
 	local self = setmetatable({}, EarlyUnloadHandler_mt)
 	self.overrideFillLevel = -1
+	self.settings = settings
 	return self
 end
 
@@ -87,18 +89,16 @@ function EarlyUnloadHandler.startOverloading(baler)
 	traceMethod("startOverloading")
 	--Two-chamber vehicles: Reduce the overloading percentage so the baler starts unloading
 	local spec = baler.spec_baler
-	spec.buffer.overloadingStartFillLevelPct = g_currentMission.unloadBalesEarlySettings:getUnloadThresholdInPercent() / 100
-	spec.overloadingThresholdIsOverridden = true
+	if UnloadBalesEarly.settings.overloadingThreshold then
+		spec.buffer.overloadingStartFillLevelPct = UnloadBalesEarly.settings.overloadingThreshold / 100
+		spec.overloadingThresholdIsOverridden = true
+	end
 end
 
 ---Intercepts the action call in order to start overloading if necessary. 
 ---@param baler table @The baler instace
 ---@param superFunc function @The base game implementation
----@param param1 any @Unknown param (not needed, but forwarded to superFunc)
----@param param2 any @Unknown param (not needed, but forwarded to superFunc)
----@param param3 any @Unknown param (not needed, but forwarded to superFunc)
----@param param4 any @Unknown param (not needed, but forwarded to superFunc)
-function EarlyUnloadHandler:onActionEventUnloading(baler, superFunc, param1, param2, param3, param4)
+function EarlyUnloadHandler:onActionEventUnloading(baler, superFunc, ...)
 	traceMethod("onActionEventUnloading")
 	if EarlyUnloadHandler.getCanOverloadBuffer(baler) then
 		traceMethod("onActionEventUnloading/can overload")
@@ -124,13 +124,13 @@ function EarlyUnloadHandler:onActionEventUnloading(baler, superFunc, param1, par
 			g_client:getServerConnection():sendEvent(UnloadBaleEarlyEvent.new(baler))
 			-- Do not call super func. The server will make sure the necessary functions get called on the clients
 		else
-			superFunc(baler, param1, param2, param3, param4)
+			superFunc(baler, ...)
 		end
 	else
 		traceMethod("onActionEventUnloading/can not overload")
 		-- Forward the event through base game mechanism in all other cases
 		-- In single player or for the hosting player, this could trigger an early unload
-		superFunc(baler, param1, param2, param3, param4)
+		superFunc(baler, ...)
 	end
 end
 
@@ -237,7 +237,7 @@ end
 function EarlyUnloadHandler.getCanUnloadUnfinishedBale(baler, superFunc)
 	-- Adjust the threshold now. This will also adjust it for functions which don't use the getter
 	local spec = baler.spec_baler
-	spec.unfinishedBaleThreshold = EarlyUnloadHandler.getUnfinishedBaleThreshold(baler, 1)
+	spec.unfinishedBaleThreshold = EarlyUnloadHandler.getUnloadBaleThreshold(baler, 1)
 	-- Return the base game implementation now that we adjusted the threshold
 	return superFunc(baler)
 end
@@ -256,13 +256,28 @@ function EarlyUnloadHandler.getCanOverloadBuffer(baler)
 	if spec.originalOverloadPct == 0 then
 		return false
 	end
-	local requiredLiters = math.max(1, EarlyUnloadHandler.getUnfinishedBaleThreshold(baler, 2))
+	local requiredLiters = math.max(1, EarlyUnloadHandler.getOverloadBaleThreshold(baler, 2))
 	return baler:getIsTurnedOn() and baler.spec_fillUnit.fillUnits[2].fillLevel >= requiredLiters
 end
 
 ---Calculates the threshold for unloading bales for the given fill unit index
 ---@param baler table @The baler to be updated
----@param fillUnitIndex integer @The index of the relevant fill unit (either the bale chamber or the buffer chamber)
-function EarlyUnloadHandler.getUnfinishedBaleThreshold(baler, fillUnitIndex)
-	return baler:getFillUnitCapacity(fillUnitIndex) * g_currentMission.unloadBalesEarlySettings:getUnloadThresholdInPercent() / 100
+---@param fillUnitIndex integer @The index of the relevant fill unit (the bale chamber)
+function EarlyUnloadHandler.getUnloadBaleThreshold(baler, fillUnitIndex)
+	local factor = 1
+	if UnloadBalesEarly.settings.unloadingThreshold then
+		factor = UnloadBalesEarly.settings.unloadingThreshold / 100
+	end
+	return baler:getFillUnitCapacity(fillUnitIndex) * factor
+end
+
+---Calculates the threshold for overloading from the given fill unit index to a different chamber
+---@param baler table @The baler to be updated
+---@param fillUnitIndex integer @The index of the relevant fill unit (the buffer chamber)
+function EarlyUnloadHandler.getOverloadBaleThreshold(baler, fillUnitIndex)
+	local factor = 1
+	if UnloadBalesEarly.settings.overloadingThreshold then
+		factor = UnloadBalesEarly.settings.overloadingThreshold / 100
+	end
+	return baler:getFillUnitCapacity(fillUnitIndex) * factor
 end

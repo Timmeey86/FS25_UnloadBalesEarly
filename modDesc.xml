@@ -71,7 +71,7 @@ Changelog:
 		<sourceFile filename="scripts/EarlyUnloadHandler.lua" />
 		<sourceFile filename="scripts/UnloadBalesEarly.lua" />
 	</extraSourceFiles>
-    <l10n filenamePrefix="i18n/locale" />
+	<l10n filenamePrefix="i18n/locale" />
 <!--
 	<l10n>
 		<text name="ub_overload_early">

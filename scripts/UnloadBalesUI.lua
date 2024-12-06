@@ -3,9 +3,8 @@
 ---@field settings UnloadBalesSettings @The settings object
 ---@field controls table @A list of all UI controls
 ---@field sectionTitle table @The UI header for UnloadBalesEarly settings
----@field threshold table @The UI control for the unload threshold
----@field enableOverloading table @The UI control for toggling overloading
----@field enableUnloading table @The UI control for toggling unloading
+---@field overloadingThreshold table @The UI control for the overload threshold
+---@field unloadingThreshold table @The UI control for the unload threshold
 UnloadBalesUI = {
 }
 
@@ -36,8 +35,6 @@ function UnloadBalesUI:injectUiSettings()
 
 	-- Define the UI controls. For each control, a <prefix>_<name>_short and _long key must exist in the i18n values
 	local controlProperties = {
-		{ name = "enableOverloading", autoBind = true },
-		{ name = "enableUnloading", autoBind = true },
 		{ name = "overloadingThreshold", min = 0, max = 90, step = 10, autoBind = true, nillable = true },
 		{ name = "unloadingThreshold", min = 0, max = 90, step = 10, autoBind = true, nillable = true }
 	}
