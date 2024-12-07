@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <l10n>
-	<translationContributors>vitalii2011</translationContributors>
+	<translationContributors>nagor</translationContributors>
 	<texts>
 		<text name="ub_section_title" text="Выгрузка Неполных Тюков" />
 		<text name="input_UNLOAD_BALE_EARLY" text="Выгрузка Неполных Тюков" />
 		<text name="ub_overload_early" text="Перегрузка во вторую камеру" />
-		<text name="ub_overloadingThreshold_short" text="Required Overload Percentage" />
-		<text name="ub_overloadingThreshold_long" text="Overloading early will only be possible if the first chamber is filled to at least this percentage. '-' means the feature is disabled." />
-		<text name="ub_unloadingThreshold_short" text="Required Unload Percentage" />
-		<text name="ub_unloadingThreshold_long" text="Unloading early will only be possible if the bale has been filled to at least this percentage. '-' means the feature is disabled." />
+		<text name="ub_overloadingThreshold_short" text="Требуемый процент для перегрузки" />
+		<text name="ub_overloadingThreshold_long" text="Ранняя перегрузка возможна только в том случае, если первая камера заполнена хотя бы на этот процент. '-' означает, что функция отключена." />
+		<text name="ub_unloadingThreshold_short" text="Требуемый процент для выгрузки" />
+		<text name="ub_unloadingThreshold_long" text="Выгрузка возможна только в том случае, если тюк заполнен как минимум на этот процент. '-' означает, что функция отключена." />
 	</texts>
 </l10n>
