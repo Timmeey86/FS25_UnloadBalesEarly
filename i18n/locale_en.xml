@@ -3,7 +3,8 @@
 	<translationContributors/>
 	<texts>
 		<text name="ub_section_title" text="Unload Bales Early" />
-		<text name="ub_overload_early" text="Overload to second chamber" />
+		<text name="input_UNLOAD_BALE_EARLY" text="Unload Bales Early" />
+		<text name="ub_overload_early" text="Overload To Second Chamber" />
 		<text name="ub_overloadingThreshold_short" text="Required Overload Percentage" />
 		<text name="ub_overloadingThreshold_long" text="Overloading early will only be possible if the first chamber is filled to at least this percentage. '-' means the feature is disabled." />
 		<text name="ub_unloadingThreshold_short" text="Required Unload Percentage" />

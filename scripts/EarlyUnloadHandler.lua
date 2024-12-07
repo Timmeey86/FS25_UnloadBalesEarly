@@ -16,7 +16,7 @@ function EarlyUnloadHandler.new(settings)
 	return self
 end
 
-local traceCalls = false
+local traceCalls = true
 local function traceMethod(methodName)
 	if traceCalls then
 		print(MOD_NAME .. ": " .. methodName)
@@ -171,6 +171,7 @@ function EarlyUnloadHandler:interceptBaleCreation(baler, superFunc, baleFillType
 	return superFunc(baler, baleFillType, adjustedFillLevel, baleServerId, baleTime, xmlFileName)
 end
 
+local first = true
 ---Enables or disables our hotkey for unloading bales, dependent on whether or not the threshold was reached
 ---@param baler table @The baler instance
 ---@param superFunc function @The base game implementation
@@ -178,35 +179,49 @@ function EarlyUnloadHandler.updateActionEvents(baler, superFunc)
 	-- Enable base game actions
 	superFunc(baler)
 
+	-- Some balers like the Göweil VarioMaster always trigger updateActionEvents even if the player is not inside the baler
+	-- This might make sense for base game, so the player can fold the baler while standing next to it, but we don't want this behavior for our own actions
+	local currentPlayerVehicle = g_localPlayer and g_localPlayer:getCurrentVehicle()
+	local balerRootVehicle = baler:findRootVehicle()
+	if currentPlayerVehicle ~= balerRootVehicle then
+		traceMethod(("updateActionEvents/ignore baler %s"):format(baler.configFileName))
+		return
+	end
+
 	-- Enable the unload early option when necessary
 	local spec = baler.spec_baler
-	local actionEvent = spec.actionEvents[InputAction.TOGGLE_PIPE]
-	if actionEvent ~= nil then
-		local showAction = false
-		if EarlyUnloadHandler.getCanOverloadBuffer(baler) then
-			-- Two-chamber balers like the JD Cotton Harvester or the modded Fendt Rotana 180 Xtra-V:
-			-- Use the same action which will just trigger a different mechanism
-			if spec.unloadingState == Baler.UNLOADING_CLOSED and not spec.platformReadyToDrop then
-				g_inputBinding:setActionEventText(actionEvent.actionEventId, g_i18n:getText("ub_overload_early"))
+	local showAction = false
+	if EarlyUnloadHandler.getCanOverloadBuffer(baler) then
+		-- Two-chamber balers like the JD Cotton Harvester or the modded Fendt Rotana 180 Xtra-V:
+		-- Use the same action which will just trigger a different mechanism
+		if spec.unloadingState == Baler.UNLOADING_CLOSED and not spec.platformReadyToDrop then
+			g_inputBinding:setActionEventText(baler.unloadBaleActionEventId, g_i18n:getText("ub_overload_early"))
+			showAction = true
+		else
+			traceMethod(("udpateActionEvents/unloadingState = %d, not platformReadyToDrop = %s"):format(spec.unloadingState, not spec.platformReadyToDrop))
+		end
+	end
+	if not showAction and baler:isUnloadingAllowed() and (spec.hasUnloadingAnimation or spec.allowsBaleUnloading) then
+		-- Any other baler really
+		if spec.unloadingState == Baler.UNLOADING_CLOSED then
+			if baler:getCanUnloadUnfinishedBale() and not spec.platformReadyToDrop then
+				g_inputBinding:setActionEventText(baler.unloadBaleActionEventId, g_i18n:getText("input_UNLOAD_BALE_EARLY"))
 				showAction = true
+				traceMethod("updateActionEvents/canUnload")
 			else
-				traceMethod(("udpateActionEvents/unloadingState = %d, not plafromReadyToDrop = %s"):format(spec.unloadingState, not spec.platformReadyToDrop))
+				traceMethod(("updateActionEvents/canUnloadUnfinishedBale = %s, not platformReadyToDrop = %s"):format(baler:getCanUnloadUnfinishedBale(), not spec.platformReadyToDrop))
 			end
+		else
+			traceMethod(("updateActionEvents/unloadingState = %d"):format(spec.unloadingState))
 		end
-		if not showAction and baler:isUnloadingAllowed() and (spec.hasUnloadingAnimation or spec.allowsBaleUnloading) then
-			-- Any other baler really
-			if spec.unloadingState == Baler.UNLOADING_CLOSED then
-				if baler:getCanUnloadUnfinishedBale() and not spec.platformReadyToDrop then
-					g_inputBinding:setActionEventText(actionEvent.actionEventId, spec.texts.unloadUnfinishedBale)
-					showAction = true
-				end
-			else
-				traceMethod(("updateActionEvents/unloadingState = %d"):format(spec.unloadingState))
-			end
-		elseif not showAction then
-			traceMethod(("updateActionEvents/isUnloadingAllowed = %s, hasUnloadingAnimation = %s, allowsBaleUnloading = %s"):format(baler:isUnloadingAllowed(), spec.hasUnloadingAnimation, spec.allowsBaleUnloading))
-		end
-		g_inputBinding:setActionEventActive(actionEvent.actionEventId, showAction)
+	elseif not showAction then
+		traceMethod(("updateActionEvents/isUnloadingAllowed = %s, hasUnloadingAnimation = %s, allowsBaleUnloading = %s"):format(baler:isUnloadingAllowed(), spec.hasUnloadingAnimation, spec.allowsBaleUnloading))
+	end
+	g_inputBinding:setActionEventActive(baler.unloadBaleActionEventId, showAction)
+	if showAction then
+		traceMethod("updateActionEvents/action is enabled")
+	else
+		traceMethod("updateActionEvents/action is disabled")
 	end
 end
 
@@ -222,8 +237,14 @@ function EarlyUnloadHandler.onRegisterActionEvents(baler, superFunc, isActiveFor
 	local spec = baler.spec_baler
 	if baler.isClient and isActiveForInputIgnoreSelection then
 		-- Add an "unload unfinished bale" function
-		local _, actionEventId = baler:addPoweredActionEvent(spec.actionEvents, InputAction.TOGGLE_PIPE, baler, Baler.actionEventUnloading, false, true, false, true, nil)
-		g_inputBinding:setActionEventTextPriority(actionEventId, GS_PRIO_HIGH)
+		local isValid, actionEventId = baler:addPoweredActionEvent(spec.actionEvents, 'UNLOAD_BALE_EARLY', baler, Baler.actionEventUnloading, false, true, false, true, nil)
+		if isValid then
+			g_inputBinding:setActionEventTextPriority(actionEventId, GS_PRIO_HIGH)
+			g_inputBinding:setActionEventActive(false)
+			baler.unloadBaleActionEventId = actionEventId
+		else
+			Logging.error("%s: Failed registering the action event for unloading early", MOD_NAME)
+		end
 	end
 
 	-- Upade action events again to include our new option
@@ -238,6 +259,7 @@ function EarlyUnloadHandler.getCanUnloadUnfinishedBale(baler, superFunc)
 	-- Adjust the threshold now. This will also adjust it for functions which don't use the getter
 	local spec = baler.spec_baler
 	spec.unfinishedBaleThreshold = EarlyUnloadHandler.getUnloadBaleThreshold(baler, 1)
+	traceMethod(("getCanUnloadUnfinishedBale/fillLevel = %s, threshold = %s"):format(baler:getFillUnitFillLevel(spec.fillUnitIndex), spec.unfinishedBaleThreshold))
 	-- Return the base game implementation now that we adjusted the threshold
 	return superFunc(baler)
 end

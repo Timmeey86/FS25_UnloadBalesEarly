@@ -3,6 +3,7 @@
 	<translationContributors>Ferchu425</translationContributors>
 	<texts>
 		<text name="ub_section_title" text="Descarga Anticipada De Pacas" />
+		<text name="input_UNLOAD_BALE_EARLY" text="Descarga Anticipada De Pacas" />
 		<text name="ub_overload_early" text="Descarga en Segunda Camara" />
 		<text name="ub_overloadingThreshold_short" text="Required Overload Percentage" />
 		<text name="ub_overloadingThreshold_long" text="Overloading early will only be possible if the first chamber is filled to at least this percentage. '-' means the feature is disabled." />

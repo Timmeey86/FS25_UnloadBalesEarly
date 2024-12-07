@@ -71,6 +71,15 @@ Changelog:
 		<sourceFile filename="scripts/EarlyUnloadHandler.lua" />
 		<sourceFile filename="scripts/UnloadBalesEarly.lua" />
 	</extraSourceFiles>
+	
+	<actions>
+		<action name="UNLOAD_BALE_EARLY" category="VEHICLE" axis="HALF"/>
+	</actions>
+	<inputBinding>
+		<actionBinding action="UNLOAD_BALE_EARLY">
+			<binding device="KB_MOUSE_DEFAULT" input="KEY_o"/>
+		</actionBinding>
+	</inputBinding>
 
 	<l10n filenamePrefix="i18n/locale" />
 </modDesc>

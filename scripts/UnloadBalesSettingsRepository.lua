@@ -19,8 +19,8 @@ function UnloadBalesSettingsRepository.storeSettings(settings)
 	local xmlFileId = createXMLFile("UnloadBalesEarly", xmlPath, UnloadBalesSettingsRepository.MAIN_KEY)
 
 	-- Add XML data in memory
-	setXMLInt(xmlFileId, UnloadBalesSettingsRepository.getPathForStateAttribute(UnloadBalesSettingsRepository.OVERLOAD_THRESHOLD_KEY), settings.overloadingThreshold or 0)
-	setXMLInt(xmlFileId, UnloadBalesSettingsRepository.getPathForStateAttribute(UnloadBalesSettingsRepository.UNLOADING_THRESHOLD_KEY), settings.unloadingThreshold or 0)
+	setXMLInt(xmlFileId, UnloadBalesSettingsRepository.getPathForStateAttribute(UnloadBalesSettingsRepository.OVERLOAD_THRESHOLD_KEY), settings.overloadingThreshold or -1)
+	setXMLInt(xmlFileId, UnloadBalesSettingsRepository.getPathForStateAttribute(UnloadBalesSettingsRepository.UNLOADING_THRESHOLD_KEY), settings.unloadingThreshold or -1)
 
 	-- Write the XML file to disk
 	saveXMLFile(xmlFileId)
@@ -53,11 +53,11 @@ function UnloadBalesSettingsRepository.restoreSettings()
 	-- Read the values from memory
 	settings.overloadingThreshold = getXMLInt(xmlFileId, UnloadBalesSettingsRepository.getPathForStateAttribute(UnloadBalesSettingsRepository.OVERLOAD_THRESHOLD_KEY)) or settings.overloadingThreshold
 	settings.unloadingThreshold = getXMLInt(xmlFileId, UnloadBalesSettingsRepository.getPathForStateAttribute(UnloadBalesSettingsRepository.UNLOADING_THRESHOLD_KEY)) or settings.unloadingThreshold
-	if settings.overloadingThreshold == 0 then
+	if settings.overloadingThreshold == -1 then
 		settings.overloadingThreshold = nil
 	end
-	if settings.unloadingThreshold == 0 then
-		settings.overloadingThreshold = nil
+	if settings.unloadingThreshold == -1 then
+		settings.unloadingThreshold = nil
 	end
 	print(MOD_NAME .. ": Successfully restored settings")
 

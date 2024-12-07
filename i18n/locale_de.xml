@@ -3,6 +3,7 @@
 	<translationContributors/>
 	<texts>
 		<text name="ub_section_title" text="Ballen Frühzeitig Abladen" />
+		<text name="input_UNLOAD_BALE_EARLY" text="Ballen Frühzeitig Abladen" />
 		<text name="ub_overload_early" text="Lade in zweite Kammer über" />
 		<text name="ub_overloadingThreshold_short" text="Benötigter Prozentsatz zum Überladen" />
 		<text name="ub_overloadingThreshold_long" text="Das vorzeitige Überladen wird nur möglich sein, wenn die erste Kammer mindestens bis zu diesem Prozentsatz gefüllt ist. '-' bedeutet, dass diese Funktion deaktiviert ist." />

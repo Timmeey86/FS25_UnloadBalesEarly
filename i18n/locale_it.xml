@@ -3,6 +3,7 @@
 	<translationContributors>FirenzeIT</translationContributors>
 	<texts>
 		<text name="ub_section_title" text="Scarico Anticipato Delle Balle" />
+		<text name="input_UNLOAD_BALE_EARLY" text="Scarico Anticipato Delle Balle" />
 		<text name="ub_overload_early" text="Scarico nella Seconda Camera" />
 		<text name="ub_overloadingThreshold_short" text="Required Overload Percentage" />
 		<text name="ub_overloadingThreshold_long" text="Overloading early will only be possible if the first chamber is filled to at least this percentage. '-' means the feature is disabled." />
