@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <l10n>
-	<translationContributors>ZiutaPL</translationContributors>
+	<translationContributors>Ziuta</translationContributors>
 	<texts>
-		<text name="ub_section_title" text="Wcześniejszy Rozładunek Bel" />
-		<text name="input_UNLOAD_BALE_EARLY" text="Wcześniejszy Rozładunek Bel" />
+		<text name="ub_section_title" text="Wcześniejszy rozładunek bel" />
+		<text name="input_UNLOAD_BALE_EARLY" text="Wcześniejszy rozładunek bel" />
 		<text name="ub_overload_early" text="Przeładunek do drugiej komory" />
-		<text name="ub_overloadingThreshold_short" text="Required Overload Percentage" />
-		<text name="ub_overloadingThreshold_long" text="Overloading early will only be possible if the first chamber is filled to at least this percentage. '-' means the feature is disabled." />
-		<text name="ub_unloadingThreshold_short" text="Required Unload Percentage" />
-		<text name="ub_unloadingThreshold_long" text="Unloading early will only be possible if the bale has been filled to at least this percentage. '-' means the feature is disabled." />
+		<text name="ub_overloadingThreshold_short" text="Wymagany poziom przeładunku" />
+		<text name="ub_overloadingThreshold_long" text="Wczesne przeładowanie będzie możliwe tylko wtedy, gdy pierwsza komora jest wypełniona co najmniej w tym procencie, '-' oznacza, że funkcja jest wyłączona." />
+		<text name="ub_unloadingThreshold_short" text="Wymagany poziom rozładunku" />
+		<text name="ub_unloadingThreshold_long" text="Wcześniejszy rozładunek będzie możliwy tylko wtedy, gdy bela osiągnie ten procent wypełnienia, '-' oznacza, że funkcja jest wyłączona." />
 	</texts>
 </l10n>
