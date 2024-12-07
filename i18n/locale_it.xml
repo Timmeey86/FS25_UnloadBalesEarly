@@ -5,9 +5,9 @@
 		<text name="ub_section_title" text="Scarico Anticipato Delle Balle" />
 		<text name="input_UNLOAD_BALE_EARLY" text="Scarico Anticipato Delle Balle" />
 		<text name="ub_overload_early" text="Scarico nella Seconda Camera" />
-		<text name="ub_overloadingThreshold_short" text="Required Overload Percentage" />
-		<text name="ub_overloadingThreshold_long" text="Overloading early will only be possible if the first chamber is filled to at least this percentage. '-' means the feature is disabled." />
-		<text name="ub_unloadingThreshold_short" text="Required Unload Percentage" />
-		<text name="ub_unloadingThreshold_long" text="Unloading early will only be possible if the bale has been filled to at least this percentage. '-' means the feature is disabled." />
+		<text name="ub_overloadingThreshold_short" text="Percentuale di Sovraccarico Richiesta" />
+		<text name="ub_overloadingThreshold_long" text="Il sovraccarico anticipato sarà possibile solo se la prima camera è riempita almeno a questa percentuale. '-' significa che la funzione è disabilitata." />
+		<text name="ub_unloadingThreshold_short" text="Percentuale di Scarico Richiesta" />
+		<text name="ub_unloadingThreshold_long" text="Lo scarico anticipato sarà possibile solo se la balla è stata riempita almeno a questa percentuale. '-' significa che la funzione è disattivata." />
 	</texts>
 </l10n>
