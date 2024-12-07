@@ -16,7 +16,7 @@ function EarlyUnloadHandler.new(settings)
 	return self
 end
 
-local traceCalls = true
+local traceCalls = false
 local function traceMethod(methodName)
 	if traceCalls then
 		print(MOD_NAME .. ": " .. methodName)
@@ -191,7 +191,7 @@ function EarlyUnloadHandler.updateActionEvents(baler, superFunc)
 	-- Enable the unload early option when necessary
 	local spec = baler.spec_baler
 	local showAction = false
-	if EarlyUnloadHandler.getCanOverloadBuffer(baler) then
+	if UnloadBalesEarly.settings.overloadingThreshold and EarlyUnloadHandler.getCanOverloadBuffer(baler) then
 		-- Two-chamber balers like the JD Cotton Harvester or the modded Fendt Rotana 180 Xtra-V:
 		-- Use the same action which will just trigger a different mechanism
 		if spec.unloadingState == Baler.UNLOADING_CLOSED and not spec.platformReadyToDrop then
@@ -201,7 +201,7 @@ function EarlyUnloadHandler.updateActionEvents(baler, superFunc)
 			traceMethod(("udpateActionEvents/unloadingState = %d, not platformReadyToDrop = %s"):format(spec.unloadingState, not spec.platformReadyToDrop))
 		end
 	end
-	if not showAction and baler:isUnloadingAllowed() and (spec.hasUnloadingAnimation or spec.allowsBaleUnloading) then
+	if UnloadBalesEarly.settings.unloadingThreshold and not showAction and baler:isUnloadingAllowed() and (spec.hasUnloadingAnimation or spec.allowsBaleUnloading) then
 		-- Any other baler really
 		if spec.unloadingState == Baler.UNLOADING_CLOSED then
 			if baler:getCanUnloadUnfinishedBale() and not spec.platformReadyToDrop then
@@ -258,7 +258,11 @@ end
 function EarlyUnloadHandler.getCanUnloadUnfinishedBale(baler, superFunc)
 	-- Adjust the threshold now. This will also adjust it for functions which don't use the getter
 	local spec = baler.spec_baler
-	spec.unfinishedBaleThreshold = EarlyUnloadHandler.getUnloadBaleThreshold(baler, 1)
+	if UnloadBalesEarly.settings.unloadingThreshold then
+		-- A custom threshold was configured, get the threshold as a float value
+		spec.unfinishedBaleThreshold = EarlyUnloadHandler.getUnloadBaleThreshold(baler, 1)
+	-- else: Keep default threshold
+	end
 	traceMethod(("getCanUnloadUnfinishedBale/fillLevel = %s, threshold = %s"):format(baler:getFillUnitFillLevel(spec.fillUnitIndex), spec.unfinishedBaleThreshold))
 	-- Return the base game implementation now that we adjusted the threshold
 	return superFunc(baler)
