@@ -5,9 +5,9 @@
 		<text name="ub_section_title" text="Balyaları Erken Boşalt" />
 		<text name="input_UNLOAD_BALE_EARLY" text="Balyaları Erken Boşalt" />
 		<text name="ub_overload_early" text="İkinci Bölmeye Aşırı Yükle" />
-		<text name="ub_overloadingThreshold_short" text="Required Overload Percentage" />
-		<text name="ub_overloadingThreshold_long" text="Overloading early will only be possible if the first chamber is filled to at least this percentage. '-' means the feature is disabled." />
-		<text name="ub_unloadingThreshold_short" text="Required Unload Percentage" />
-		<text name="ub_unloadingThreshold_long" text="Unloading early will only be possible if the bale has been filled to at least this percentage. '-' means the feature is disabled." />
+		<text name="ub_overloadingThreshold_short" text="Aşırı Yükleme Yüzdesi Gerekli" />
+		<text name="ub_overloadingThreshold_long" text="Erken aşırı yükleme sadece ilk hazne en az bu yüzdeye kadar doldurulursa mümkün olacaktır. '-' özelliğin devre dışı olduğu anlamına gelir." />
+		<text name="ub_unloadingThreshold_short" text="Boşaltma Yüzdesi Gerekli" />
+		<text name="ub_unloadingThreshold_long" text="Erken boşaltma yalnızca balya en az bu yüzdeye kadar doldurulmuşsa mümkün olacaktır. '-' özelliğin devre dışı olduğu anlamına gelir." />
 	</texts>
 </l10n>
