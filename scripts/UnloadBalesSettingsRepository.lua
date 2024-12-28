@@ -31,6 +31,11 @@ end
 function UnloadBalesSettingsRepository.restoreSettings()
 	local settings = UnloadBalesSettings.new()
 
+	-- skip restoring on multiplayer clients. Default settings will persist until the server send the initial settings (this happens during the loading screen)
+	if not g_server then
+		return settings
+	end
+
 	local xmlPath = UnloadBalesSettingsRepository.getXmlFilePath()
 	if xmlPath == nil then
 		-- This is a valid case when a new game was started. The savegame path will only be available after saving once
