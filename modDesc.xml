@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="93">
 	<author>Farmsim Tim (timmeey86)</author>
-	<version>1.1.0.1</version>
+	<version>1.1.1.0</version>
 	<title>
 		<en>Unload Bales Early</en>
 		<de>Ballen Frühzeitig Abladen</de>
@@ -29,9 +29,10 @@ Hotkeys: O: Unloads unfinished bales or overloads the first chamber to the secon
 GitHub link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
 
 Changelog:
-1.1.0.1:
+1.1.1.0:
 - Thresholds for overloading and unloading can now be configured (or deactivated).
 - The key binding for overloading and unloading can now be changed.
+- Fixed errors related to changing settings in multiplayer.
 
 1.0.0.1:
 - Fixed unloading and overloading for multiplayer clients
@@ -52,9 +53,10 @@ Tastenkombinationen: O: Lädt Ballen vorzeitig ab oder lädt den Inhalt von der 
 GitHub-Link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
 
 Changelog:
-1.1.0.1:
+1.1.1.0:
 - Die Schwellwerte zum Überladen und Abladen können nun konfiguriert (oder auch deaktiviert) werden.
 - Die Tastenbelegung zum Überladen und Abladen kann nun geändert werden.
+- Fehler beim Ändern von Einstellungen im Mehrspielermodus behoben
 
 1.0.0.1:
 - Fehler beim Abladen und Überladen im Mehrspielermodus behoben
