@@ -40,11 +40,15 @@ local function destroyModSettings()
 end
 FSBaseMission.delete = Utils.appendedFunction(FSBaseMission.delete, destroyModSettings)
 
----Restore the settings object (unless this is a multiplayer client, in which case we just get a default object for now)
-UnloadBalesEarly.settings = UnloadBalesSettingsRepository.restoreSettings()
+-- Create default settings
+UnloadBalesEarly.settings = UnloadBalesSettings.new()
 local unloadBalesUi = UnloadBalesUI.new(UnloadBalesEarly.settings)
 
 BaseMission.loadMapFinished = Utils.prependedFunction(BaseMission.loadMapFinished, function(...)
+	---Restore the settings object (unless this is a multiplayer client, in which case we just get a default object for now)
+	---This needs to be done after g_currentMission is valid, otherwise the save directory wouldn't be found
+	UnloadBalesSettingsRepository.restoreSettings(UnloadBalesEarly.settings)
+	-- Initialize the UI now that the settings are up-to-date
 	unloadBalesUi:injectUiSettings()
 end)
 -- Save settings when the savegame is being saved

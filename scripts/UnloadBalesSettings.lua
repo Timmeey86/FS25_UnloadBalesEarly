@@ -9,6 +9,7 @@ local UnloadBalesSettings_mt = Class(UnloadBalesSettings)
 ---Creates a new settings instance
 ---@return table @The new instance
 function UnloadBalesSettings.new()
+	printf("%s: Creating new settings", MOD_NAME)
 	local self = setmetatable({}, UnloadBalesSettings_mt)
 	self.overloadingThreshold = 0
 	self.unloadingThreshold = 0
@@ -31,6 +32,7 @@ end
 
 ---Publishes new settings in case of multiplayer
 function UnloadBalesSettings:publishNewSettings()
+	printf("%s: Publishing new settings", MOD_NAME)
 	if g_server ~= nil then
 		-- Broadcast to other clients, if any are connected
 		g_server:broadcastEvent(UnloadBalesSettingsChangeEvent.new())

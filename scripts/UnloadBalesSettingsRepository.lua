@@ -27,32 +27,33 @@ function UnloadBalesSettingsRepository.storeSettings(settings)
 end
 
 ---Reads settings from an existing XML file, if such a file exists
----@return UnloadBalesSettings @The settings object (default, if nothing was loaded from file)
-function UnloadBalesSettingsRepository.restoreSettings()
-	local settings = UnloadBalesSettings.new()
+---@param settings UnloadBalesSettings @The settings object
+function UnloadBalesSettingsRepository.restoreSettings(settings)
 
 	-- skip restoring on multiplayer clients. Default settings will persist until the server send the initial settings (this happens during the loading screen)
 	if not g_server then
-		return settings
+		printf("%s: Aborting settings load since this is a multiplayer client", MOD_NAME)
+		return
 	end
+	printf("%s: Restoring settings on server or in single player", MOD_NAME)
 
 	local xmlPath = UnloadBalesSettingsRepository.getXmlFilePath()
 	if xmlPath == nil then
 		-- This is a valid case when a new game was started. The savegame path will only be available after saving once
-		return settings
+		return
 	end
 
 	-- Abort if no settings have been saved yet
 	if not fileExists(xmlPath) then
 		print(MOD_NAME .. ": No settings found, using default settings")
-		return settings
+		return
 	end
 
 	-- Load the XML if possible
 	local xmlFileId = loadXMLFile("UnloadBalesEarly", xmlPath)
 	if xmlFileId == 0 then
 		Logging.warning(MOD_NAME .. ": Failed reading from XML file")
-		return settings
+		return
 	end
 
 	-- Read the values from memory
@@ -66,7 +67,9 @@ function UnloadBalesSettingsRepository.restoreSettings()
 	end
 	print(MOD_NAME .. ": Successfully restored settings")
 
-	return settings
+	-- Publish an update just in case somebody connected before the map had finished loading. Will do nothing if nobody is connected
+	settings:publishNewSettings()
+	return
 end
 
 ---Builds an XML path for a "state" attribute like a true/false switch or a selection of predefined values, but not a custom text, for example
