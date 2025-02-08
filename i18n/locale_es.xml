@@ -5,9 +5,9 @@
 		<text name="ub_section_title" text="Descarga Anticipada De Pacas" />
 		<text name="input_UNLOAD_BALE_EARLY" text="Descarga Anticipada De Pacas" />
 		<text name="ub_overload_early" text="Descarga en Segunda Camara" />
-		<text name="ub_overloadingThreshold_short" text="Required Overload Percentage" />
-		<text name="ub_overloadingThreshold_long" text="Overloading early will only be possible if the first chamber is filled to at least this percentage. '-' means the feature is disabled." />
-		<text name="ub_unloadingThreshold_short" text="Required Unload Percentage" />
-		<text name="ub_unloadingThreshold_long" text="Unloading early will only be possible if the bale has been filled to at least this percentage. '-' means the feature is disabled." />
+		<text name="ub_overloadingThreshold_short" text="Porcentaje Requerido para la Sobrecarga" />
+		<text name="ub_overloadingThreshold_long" text="La Sobrecarga temprana sólo será posible si la primer cámara está completa al menos a este porcentaje. '-' significa que la característica está deshabilitada." />
+		<text name="ub_unloadingThreshold_short" text="Porcentaje Requerido para la Descarga" />
+		<text name="ub_unloadingThreshold_long" text="La Descarga temprana sólo será posible si la paca está completa al menos a este porcentaje. '-' significa que la característica está deshabilitada." />
 	</texts>
 </l10n>
