@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<l10n>
+	<translationContributors/>
+	<texts>
+		<text name="ub_section_title" text="Descarga Antecipada de Fardos" />
+		<text name="input_UNLOAD_BALE_EARLY" text="Descarga Antecipada de Fardos" />
+		<text name="ub_overload_early" text="Sobrecarga na segunda câmara" />
+		<text name="ub_overloadingThreshold_short" text="Required Overload Percentage" />
+		<text name="ub_overloadingThreshold_long" text="A sobrecarga antecipada só será possível se a primeira câmara estiver cheia, pelo menos, até esta percentagem. '-' significa que a função está desactiva." />
+		<text name="ub_unloadingThreshold_short" text="Percentagem de descarga exigida" />
+		<text name="ub_unloadingThreshold_long" text="A descarga antecipada só será possível se o fardo tiver sido cheio até, pelo menos, esta percentagem. '-' significa que a função está desactiva." />
+	</texts>
+</l10n>
