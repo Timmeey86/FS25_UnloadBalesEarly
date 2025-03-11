@@ -29,6 +29,11 @@ Hotkeys: O: Unloads unfinished bales or overloads the first chamber to the secon
 GitHub link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
 
 Changelog:
+1.1.1.2:
+- Added Spanish translation provided by Ferchu425
+- Added Portuguese translation provided by Sneekavis
+- Replaced an error message by a warning message when the F1 menu entry can't be registered
+
 1.1.1.1:
 - Thresholds for overloading and unloading can now be configured (or deactivated).
 - The key binding for overloading and unloading can now be changed.
@@ -54,6 +59,11 @@ Tastenkombinationen: O: Lädt Ballen vorzeitig ab oder lädt den Inhalt von der 
 GitHub-Link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
 
 Changelog:
+1.1.1.2:
+- Spanische Übersetzung hinzugefügt. Bereitgestellt von Ferchu425
+- Portugiesische Übersetzung hinzugefügt. Bereitgestellt von Sneekavis
+- Fehlermeldung, die erscheint, wenn der F1 Menüeintrag nicht registriert werden kann, auf Warnung herabgestuft
+
 1.1.1.1:
 - Die Schwellwerte zum Überladen und Abladen können nun konfiguriert (oder auch deaktiviert) werden.
 - Die Tastenbelegung zum Überladen und Abladen kann nun geändert werden.
