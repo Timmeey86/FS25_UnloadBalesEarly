@@ -1,2 +1,5 @@
-robocopy . "%USERPROFILE%\Documents\my games\FarmingSimulator2025\mods\FS25_UnloadBalesEarly" /mir /XD ".git" ".vscode" ".VSCodeCounter" "screenshots" /XF "*.bat" "*.md" "LICENSE" ".gitignore" ".gitattributes"
-del "%USERPROFILE%\Documents\my games\FarmingSimulator2025\mods\FS25_UnloadBalesEarly.zip"
+@echo off
+for %%a in ("%~dp0\.") do set "modname=%%~nxa"
+set "targetDir=%USERPROFILE%\Documents\my games\FarmingSimulator2025\mods"
+del -q "%targetDir%\%modname%.zip"
+robocopy . "%targetDir%\%modname%" /mir /XD ".git" ".vscode" "screenshots" "test" /XF "*.bat" "*.ps1" "*.md" "LICENSE" ".gitignore" ".gitattributes"

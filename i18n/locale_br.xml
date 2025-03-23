@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<l10n>
+	<translationContributors>Myiamoto86</translationContributors>
+	<texts>
+		<text name="ub_section_title" text="Descarregar os fardos com antecedência" />
+		<text name="input_UNLOAD_BALE_EARLY" text="Descarregar os fardos com antecedência" />
+		<text name="ub_overload_early" text="Sobrecarga na segunda câmara" />
+		<text name="ub_overloadingThreshold_short" text="Porcentagem de sobrecarga necessária" />
+		<text name="ub_overloadingThreshold_long" text="A sobrecarga antecipada só será possível se a primeira câmara estiver cheia até pelo menos essa porcentagem. '-' significa que o recurso está desativado." />
+		<text name="ub_unloadingThreshold_short" text="Porcentagem de descarga necessária" />
+		<text name="ub_unloadingThreshold_long" text="O descarregamento antecipado só será possível se o fardo tiver sido preenchido com pelo menos essa porcentagem. '-' significa que o recurso está desativado." />
+	</texts>
+</l10n>

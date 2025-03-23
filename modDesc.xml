@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="94">
+<modDesc descVersion="96">
 	<author>Farmsim Tim (timmeey86)</author>
-	<version>1.1.1.2</version>
+	<version>1.1.1.3</version>
 	<title>
 		<en>Unload Bales Early</en>
 		<de>Ballen Frühzeitig Abladen</de>
@@ -11,6 +11,8 @@
 		<ea>Descarga Anticipada De Pacas</ea>
 		<it>Scarico Anticipato Delle Balle</it>
 		<tr>Balyaları Erken Boşalt</tr>
+		<pt>Descarga Antecipada De Fardos</pt>
+		<br>Descarregar Os Fardos Com Antecedência</br>
 	</title>
 	
 	<description>
@@ -29,9 +31,10 @@ Hotkeys: O: Unloads unfinished bales or overloads the first chamber to the secon
 GitHub link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
 
 Changelog:
-1.1.1.2:
+1.1.1.3:
 - Added Spanish translation provided by Ferchu425
 - Added Portuguese translation provided by Sneekavis
+- Added Brazilian Portuguese translation provided by Myiamoto86
 - Replaced an error message by a warning message when the F1 menu entry can't be registered
 
 1.1.1.1:
@@ -59,9 +62,10 @@ Tastenkombinationen: O: Lädt Ballen vorzeitig ab oder lädt den Inhalt von der 
 GitHub-Link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
 
 Changelog:
-1.1.1.2:
+1.1.1.3:
 - Spanische Übersetzung hinzugefügt. Bereitgestellt von Ferchu425
 - Portugiesische Übersetzung hinzugefügt. Bereitgestellt von Sneekavis
+- Übersetzung für brasilianisches Portugiesisch hinzugefügt. Bereitgestellt von Myiamoto86
 - Fehlermeldung, die erscheint, wenn der F1 Menüeintrag nicht registriert werden kann, auf Warnung herabgestuft
 
 1.1.1.1:
