@@ -1,22 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="96">
-	<author>Farmsim Tim (timmeey86)</author>
-	<version>1.1.1.3</version>
-	<title>
-		<en>Unload Bales Early</en>
-		<de>Ballen Frühzeitig Abladen</de>
-		<ru>Выгрузка Неполных Тюков</ru>
-		<pl>Wcześniejszy Rozładunek Bel</pl>
-		<es>Descarga Anticipada De Pacas</es>
-		<ea>Descarga Anticipada De Pacas</ea>
-		<it>Scarico Anticipato Delle Balle</it>
-		<tr>Balyaları Erken Boşalt</tr>
-		<pt>Descarga Antecipada De Fardos</pt>
-		<br>Descarregar Os Fardos Com Antecedência</br>
-	</title>
-	
-	<description>
-		<en><![CDATA[
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<modDesc descVersion="97">
+  <author>Farmsim Tim (timmeey86)</author>
+  <version>1.1.2.0</version>
+  <title>
+    <en>Unload Bales Early</en>
+    <de>Ballen Frühzeitig Abladen</de>
+    <ru>Выгрузка Неполных Тюков</ru>
+    <pl>Wcześniejszy Rozładunek Bel</pl>
+    <es>Descarga Anticipada De Pacas</es>
+    <ea>Descarga Anticipada De Pacas</ea>
+    <it>Scarico Anticipato Delle Balle</it>
+    <tr>Balyaları Erken Boşalt</tr>
+    <pt>Descarga Antecipada De Fardos</pt>
+    <br>Descarregar Os Fardos Com Antecedência</br>
+  </title>
+  <description>
+    <en><![CDATA[
 Description: This mod allows unloading unfinished bales early.
 
 The mod works for:
@@ -31,7 +30,8 @@ Hotkeys: O: Unloads unfinished bales or overloads the first chamber to the secon
 GitHub link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
 
 Changelog:
-1.1.1.3:
+1.1.2.0:
+- Fixed an incompatibility with cotton balers in game version 1.7
 - Added Spanish translation provided by Ferchu425
 - Added Portuguese translation provided by Sneekavis
 - Added Brazilian Portuguese translation provided by Myiamoto86
@@ -48,7 +48,7 @@ Changelog:
 - Added Italian translation provided by FirenzeIT
 - Added Turkish translation provided by RuyaSavascisi
 ]]></en>
-		<de><![CDATA[
+    <de><![CDATA[
 Beschreibung: Diese Mod erlaubt das frühzeitige Abladen von Ballen.
 
 Die Mod funktioniert für:
@@ -62,7 +62,8 @@ Tastenkombinationen: O: Lädt Ballen vorzeitig ab oder lädt den Inhalt von der 
 GitHub-Link: https://github.com/Timmeey86/FS25_UnloadBalesEarly
 
 Changelog:
-1.1.1.3:
+1.1.2.0:
+- Inkompatibilität mit Baumwollerntemaschinen in Spielversion 1.7 behoben
 - Spanische Übersetzung hinzugefügt. Bereitgestellt von Ferchu425
 - Portugiesische Übersetzung hinzugefügt. Bereitgestellt von Sneekavis
 - Übersetzung für brasilianisches Portugiesisch hinzugefügt. Bereitgestellt von Myiamoto86
@@ -79,33 +80,28 @@ Changelog:
 - Italienische Übersetzung hinzugefügt. Bereitgestellt von FirenzeIT
 - Türkische Übersetzung hinzugefügt. Bereitgestellt von RuyaSavascisi
 ]]></de>
-	</description>
-	
-	<multiplayer supported="true" />
-
-	<iconFilename>icon_UnloadBalesEarly.dds</iconFilename>
-
-	<extraSourceFiles>
-		<sourceFile filename="scripts/lib/UIHelper.lua" />
-		<sourceFile filename="scripts/UnloadBalesSettingsChangeEvent.lua" />
-		<sourceFile filename="scripts/UnloadBalesSettings.lua" />
-		<sourceFile filename="scripts/UnloadBalesSettingsRepository.lua" />
-		<sourceFile filename="scripts/UnloadBalesUI.lua" />
-		<sourceFile filename="scripts/UnloadBaleEarlyEvent.lua" />
-		<sourceFile filename="scripts/OverloadChamberEarlyEvent.lua" />
-		<sourceFile filename="scripts/OverrideBaleSizeEvent.lua" />
-		<sourceFile filename="scripts/EarlyUnloadHandler.lua" />
-		<sourceFile filename="scripts/UnloadBalesEarly.lua" />
-	</extraSourceFiles>
-	
-	<actions>
-		<action name="UNLOAD_BALE_EARLY" category="VEHICLE" axis="HALF"/>
-	</actions>
-	<inputBinding>
-		<actionBinding action="UNLOAD_BALE_EARLY">
-			<binding device="KB_MOUSE_DEFAULT" input="KEY_o"/>
-		</actionBinding>
-	</inputBinding>
-
-	<l10n filenamePrefix="i18n/locale" />
+  </description>
+  <multiplayer supported="true" />
+  <iconFilename>icon_UnloadBalesEarly.dds</iconFilename>
+  <extraSourceFiles>
+    <sourceFile filename="scripts/lib/UIHelper.lua" />
+    <sourceFile filename="scripts/UnloadBalesSettingsChangeEvent.lua" />
+    <sourceFile filename="scripts/UnloadBalesSettings.lua" />
+    <sourceFile filename="scripts/UnloadBalesSettingsRepository.lua" />
+    <sourceFile filename="scripts/UnloadBalesUI.lua" />
+    <sourceFile filename="scripts/UnloadBaleEarlyEvent.lua" />
+    <sourceFile filename="scripts/OverloadChamberEarlyEvent.lua" />
+    <sourceFile filename="scripts/OverrideBaleSizeEvent.lua" />
+    <sourceFile filename="scripts/EarlyUnloadHandler.lua" />
+    <sourceFile filename="scripts/UnloadBalesEarly.lua" />
+  </extraSourceFiles>
+  <actions>
+    <action name="UNLOAD_BALE_EARLY" category="VEHICLE" axis="HALF" />
+  </actions>
+  <inputBinding>
+    <actionBinding action="UNLOAD_BALE_EARLY">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_o" />
+    </actionBinding>
+  </inputBinding>
+  <l10n filenamePrefix="i18n/locale" />
 </modDesc>

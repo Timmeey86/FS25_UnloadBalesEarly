@@ -28,7 +28,7 @@ end
 ---@param superFunc function @The base game implementation
 ---@param savegame table @The save game object
 function EarlyUnloadHandler.onBalerLoad(baler, superFunc, savegame)
-	traceMethod("onBalerLoad")
+	--traceMethod("onBalerLoad")
 	local spec = baler.spec_baler
 
 	-- Execute base game behavior first
@@ -65,10 +65,10 @@ end
 ---@param baler table @The baler instance
 ---@param superFunc function @The base game implementation
 function EarlyUnloadHandler:onHandleUnloadingBaleEvent(baler, superFunc)
-	traceMethod("onHandleUnloadingBaleEvent")
+	--traceMethod("onHandleUnloadingBaleEvent")
 	local spec = baler.spec_baler
 	if spec.unloadingState == Baler.UNLOADING_CLOSED and #spec.bales == 0 and baler:getCanUnloadUnfinishedBale() then
-		traceMethod("onHandleUnloadingBaleEvent/create bale")
+		--traceMethod("onHandleUnloadingBaleEvent/create bale")
 		-- Remember the current fill level of the baler
 		self.overrideFillLevel = baler:getFillUnitFillLevel(spec.fillUnitIndex)
 		-- Set the bale to max fill level so the physics doesn't bug out when unloading. This will also cause clients to update their bale sizes
@@ -79,14 +79,14 @@ function EarlyUnloadHandler:onHandleUnloadingBaleEvent(baler, superFunc)
 	end
 
 	-- Now that we made sure a bale was created if necessary, call the base game behavior
-	traceMethod("onHandleUnloadingBaleEvent/superFunc")
+	--traceMethod("onHandleUnloadingBaleEvent/superFunc")
 	superFunc(baler)
 end
 
 ---Causes the baler to automatically start overloading its first chamber into its second one
 ---@param baler Baler @The baler
 function EarlyUnloadHandler.startOverloading(baler)
-	traceMethod("startOverloading")
+	--traceMethod("startOverloading")
 	--Two-chamber vehicles: Reduce the overloading percentage so the baler starts unloading
 	local spec = baler.spec_baler
 	if UnloadBalesEarly.settings.overloadingThreshold then
@@ -99,9 +99,9 @@ end
 ---@param baler table @The baler instace
 ---@param superFunc function @The base game implementation
 function EarlyUnloadHandler:onActionEventUnloading(baler, superFunc, ...)
-	traceMethod("onActionEventUnloading")
+	--traceMethod("onActionEventUnloading")
 	if EarlyUnloadHandler.getCanOverloadBuffer(baler) then
-		traceMethod("onActionEventUnloading/can overload")
+		--traceMethod("onActionEventUnloading/can overload")
 		if g_server == nil then
 			-- Ask the server to trigger an overload
 			g_client:getServerConnection():sendEvent(OverloadChamberEarlyEvent.new(baler))
@@ -111,7 +111,7 @@ function EarlyUnloadHandler:onActionEventUnloading(baler, superFunc, ...)
 		end
 		-- Do not call super func since we wanted the overload rather than the unload
 	elseif g_server == nil and baler:getCanUnloadUnfinishedBale() then
-		traceMethod("onActionEventUnloading/can unload as a client")
+		--traceMethod("onActionEventUnloading/can unload as a client")
 		local spec = baler.spec_baler
 		if spec.unloadingState == Baler.UNLOADING_CLOSED and #spec.bales == 0 then
 			-- override the fill level so the bale gets 
@@ -127,7 +127,7 @@ function EarlyUnloadHandler:onActionEventUnloading(baler, superFunc, ...)
 			superFunc(baler, ...)
 		end
 	else
-		traceMethod("onActionEventUnloading/can not overload")
+		--traceMethod("onActionEventUnloading/can not overload")
 		-- Forward the event through base game mechanism in all other cases
 		-- In single player or for the hosting player, this could trigger an early unload
 		superFunc(baler, ...)
@@ -141,7 +141,7 @@ function EarlyUnloadHandler.after_onUpdateTick(baler, ...)
 	-- Reset the overloading percentage when unloading has started
 	local spec = baler.spec_baler
 	if spec.buffer.unloadingStarted and spec.overloadingThresholdIsOverridden then
-		traceMethod("after_onUpdateTick/reset overloading threshold")
+		--traceMethod("after_onUpdateTick/reset overloading threshold")
 		spec.buffer.overloadingStartFillLevelPct = spec.originalOverloadPct
 		spec.overloadingThresholdIsOverridden = false
 	end
@@ -159,7 +159,7 @@ end
 ---@param xmlFileName string @The name of the XML which contains bale data (when loading)
 ---@return boolean @True if a valid bale was created
 function EarlyUnloadHandler:interceptBaleCreation(baler, superFunc, baleFillType, fillLevel, baleServerId, baleTime, xmlFileName)
-	traceMethod("interceptBaleCreation")
+	--traceMethod("interceptBaleCreation")
 	local adjustedFillLevel = fillLevel
 	-- Override the fill level when unloading an unfinished bale
 	if self.overrideFillLevel >= 0 then
@@ -184,7 +184,7 @@ function EarlyUnloadHandler.updateActionEvents(baler, superFunc)
 	local currentPlayerVehicle = g_localPlayer and g_localPlayer:getCurrentVehicle()
 	local balerRootVehicle = baler:findRootVehicle()
 	if currentPlayerVehicle ~= balerRootVehicle then
-		traceMethod(("updateActionEvents/ignore baler %s"):format(baler.configFileName))
+		--traceMethod(("updateActionEvents/ignore baler %s"):format(baler.configFileName))
 		return
 	end
 
@@ -198,30 +198,32 @@ function EarlyUnloadHandler.updateActionEvents(baler, superFunc)
 			g_inputBinding:setActionEventText(baler.unloadBaleActionEventId, g_i18n:getText("ub_overload_early"))
 			showAction = true
 		else
-			traceMethod(("udpateActionEvents/unloadingState = %d, not platformReadyToDrop = %s"):format(spec.unloadingState, not spec.platformReadyToDrop))
+			--traceMethod(("udpateActionEvents/unloadingState = %d, not platformReadyToDrop = %s"):format(spec.unloadingState, not spec.platformReadyToDrop))
 		end
+	else
+		--traceMethod(("updateActionEvents/overloadingThreshold = %s, canOverloadBuffer = %s"):format(UnloadBalesEarly.settings.overloadingThreshold, EarlyUnloadHandler.getCanOverloadBuffer(baler)))
 	end
-	if UnloadBalesEarly.settings.unloadingThreshold and not showAction and baler:isUnloadingAllowed() and (spec.hasUnloadingAnimation or spec.allowsBaleUnloading) then
+	if UnloadBalesEarly.settings.unloadingThreshold and not showAction and baler:isUnloadingAllowed() and (spec.hasUnloadingAnimation or spec.allowsBaleUnloading) and baler:getFillUnitFillLevel(spec.fillUnitIndex) > 0 then
 		-- Any other baler really
 		if spec.unloadingState == Baler.UNLOADING_CLOSED then
 			if baler:getCanUnloadUnfinishedBale() and not spec.platformReadyToDrop then
 				g_inputBinding:setActionEventText(baler.unloadBaleActionEventId, g_i18n:getText("input_UNLOAD_BALE_EARLY"))
 				showAction = true
-				traceMethod("updateActionEvents/canUnload")
+				--traceMethod("updateActionEvents/canUnload")
 			else
-				traceMethod(("updateActionEvents/canUnloadUnfinishedBale = %s, not platformReadyToDrop = %s"):format(baler:getCanUnloadUnfinishedBale(), not spec.platformReadyToDrop))
+				--traceMethod(("updateActionEvents/canUnloadUnfinishedBale = %s, not platformReadyToDrop = %s"):format(baler:getCanUnloadUnfinishedBale(), not spec.platformReadyToDrop))
 			end
 		else
-			traceMethod(("updateActionEvents/unloadingState = %d"):format(spec.unloadingState))
+			--traceMethod(("updateActionEvents/unloadingState = %d"):format(spec.unloadingState))
 		end
 	elseif not showAction then
-		traceMethod(("updateActionEvents/isUnloadingAllowed = %s, hasUnloadingAnimation = %s, allowsBaleUnloading = %s"):format(baler:isUnloadingAllowed(), spec.hasUnloadingAnimation, spec.allowsBaleUnloading))
+		--traceMethod(("updateActionEvents/isUnloadingAllowed = %s, hasUnloadingAnimation = %s, allowsBaleUnloading = %s"):format(baler:isUnloadingAllowed(), spec.hasUnloadingAnimation, spec.allowsBaleUnloading))
 	end
 	g_inputBinding:setActionEventActive(baler.unloadBaleActionEventId, showAction)
 	if showAction then
-		traceMethod("updateActionEvents/action is enabled")
+		--traceMethod("updateActionEvents/action is enabled")
 	else
-		traceMethod("updateActionEvents/action is disabled")
+		--traceMethod("updateActionEvents/action is disabled")
 	end
 end
 
@@ -263,9 +265,11 @@ function EarlyUnloadHandler.getCanUnloadUnfinishedBale(baler, superFunc)
 		spec.unfinishedBaleThreshold = EarlyUnloadHandler.getUnloadBaleThreshold(baler, 1)
 	-- else: Keep default threshold
 	end
-	traceMethod(("getCanUnloadUnfinishedBale/fillLevel = %s, threshold = %s"):format(baler:getFillUnitFillLevel(spec.fillUnitIndex), spec.unfinishedBaleThreshold))
-	-- Return the base game implementation now that we adjusted the threshold
-	return superFunc(baler)
+	--traceMethod(("getCanUnloadUnfinishedBale/fillLevel = %s, threshold = %s"):format(baler:getFillUnitFillLevel(spec.fillUnitIndex), spec.unfinishedBaleThreshold))
+	
+	-- Base game implementation interferes with our early overloading and unloading logic since game version 1.7
+	-- => We sadly need to fully replace it with the 1.6- implementation for as long as our mod is active
+	return spec.canUnloadUnfinishedBale and baler:getFillUnitFillLevel(spec.fillUnitIndex) > spec.unfinishedBaleThreshold
 end
 
 ---Checks whether or not the buffer can be overloaded into the bale chamber for two-chamber balers.
