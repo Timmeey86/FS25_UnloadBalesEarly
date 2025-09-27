@@ -220,6 +220,9 @@ end
 ---@param controls table @A list of controls
 function UIHelper.registerFocusControls(controls)
 	FocusManager.setGui = Utils.appendedFunction(FocusManager.setGui, function(_, gui)
+		if gui == nil then
+			return
+		end
 		for _, control in ipairs(controls) do
 			if not control.focusId or not FocusManager.currentFocusData.idToElementMapping[control.focusId] then
 				if not FocusManager:loadElementFromCustomValues(control, nil, nil, false, false) then
@@ -228,6 +231,11 @@ function UIHelper.registerFocusControls(controls)
 			end
 		end
 		local settingsPage = g_gui.screenControllers[InGameMenu].pageSettings
+		if settingsPage == nil then
+			Logging.warning("Settings page is nil. This should never happen")
+			printCallstack()
+			return
+		end
 		-- Invalidate the layout in order to relink items properly
 		settingsPage.generalSettingsLayout:invalidateLayout()
 	end)
