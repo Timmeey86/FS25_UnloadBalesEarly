@@ -242,7 +242,7 @@ function EarlyUnloadHandler.onRegisterActionEvents(baler, superFunc, isActiveFor
 		local isValid, actionEventId = baler:addPoweredActionEvent(spec.actionEvents, 'UNLOAD_BALE_EARLY', baler, Baler.actionEventUnloading, false, true, false, true, nil)
 		if isValid then
 			g_inputBinding:setActionEventTextPriority(actionEventId, GS_PRIO_HIGH)
-			g_inputBinding:setActionEventActive(false)
+			g_inputBinding:setActionEventActive(actionEventId, false)
 			baler.unloadBaleActionEventId = actionEventId
 		else
 			Logging.warning("%s: Failed registering the action event for unloading early. Another action might be bound to the same key.", MOD_NAME)
